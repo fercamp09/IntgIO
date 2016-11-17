@@ -8,29 +8,36 @@
 	<script type="text/javascript" src="static/js/javascript.js"></script>
     <link href="static/css/vis-network.min.css" rel="stylesheet" type="text/css" />
     <link href="static/css/styles.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
 </head>
 <body>
-<h1>intgIO</h1>
+<h1 style="font-size: 52px;  margin-left: 90px;">IntgIO</h1>
 <div>
-	<div class="wrapper" style="float: left">
+	<div class="wrapper" style="float: left; width: 22%;">
 	  <nav class="vertical">
 	    <ul>
 	      <li>
 	        <a href="#">Menu</a>
 	        <div>
 	          <ul>
-	            <li><a onclick="document.getElementById('openNewDevice').style.display='block'" style="width:auto;">Nuevo Dispositivo</a></li>
-	            <li><a href="#">Conexion</a></li>
-	            <li><a href="#">Eliminar</a></li>
-	            <li><a href="#">Ejecutar Acciones</a></li>
-	            <li><a href="#">Informacion</a></li>
+	            <li><a class="fa fa-file-o" onclick="document.getElementById('openNewDevice').style.display='block'" style="width:auto;">   Nuevo Dispositivo</a></li>
+	            <li><a class="fa fa-link" href="#">            Conexión</a></li>
+	            <li><a class="fa fa-exchange" href="#">   Ejecutar Acciones</a></li>
+	            <li><a class="fa fa-trash" href="#">            Eliminar</a></li>
+	            <li><a class="fa fa-info" href="#">         Información</a></li>
 	          </ul>
 	        </div>
 	      </li>
 	    </ul>
 	  </nav>
 	</div>
-	<div id="mynetwork" style="float: right">
+	<div style="width: 70%;height: 53%;float: right;">
+		<div style=" height: 10%;width: 330px;">
+			<a class="fa fa-search btn" aria-hidden="true" style=" font-size: 27px; float: left;"></a>
+			<a class="fa fa-eraser btn" aria-hidden="true" style=" font-size: 27px;float: right;     width: 222px;">  Limpiar Board</a>
+		</div>
+		<div id="mynetwork" >
+		</div>
 	</div>
 </div>
 <div id="openNewDevice" class="modal">
@@ -38,22 +45,28 @@
     <div class="imgcontainer">
       <span onclick="document.getElementById('openNewDevice').style.display='none'" class="close" title="Close Modal">&times;</span>
     </div>
-    <div class="container">
+    <div class="container" style=" height: 100%;">
       <label><b>Nuevo Dispositivo</b></label>
+      <div style=" height: 80%;">
       <input type="text" placeholder="Nombre Dispositivo" name="nameDevice" required>
       <input type="text" placeholder="Codigo Dispositivo" name="codeDevice" required>
       <input type="text" placeholder="Tipo Dispositivo" name="typeDevice" required>
       <input type="text" placeholder="Modelo Dispositivo" name="modelDevice" required>
-      <button type="submit">Guardar</button>
+      <label><b>   Objetos</b></label>
+      </div>
+      <div>
+      		<button type="button" style=" width: 100px; float: right;">Cancelar</button>
+	      	<button type="submit" style=" width: 100px; margin-right: 18px; float: right;">Guardar</button>
+      </div>
     </div>
   </form>
 </div>
 <script type="text/javascript">
 	// create an array with nodes
 	var nodes = new vis.DataSet([
-		{id: 1, label: 'Node 1'},
-		{id: 2, label: 'Node 2'},
-		{id: 3, label: 'Node 3'},
+		{id: 1, label: 'Dispositivo'},
+		{id: 2, label: 'Objeto'},
+		{id: 3, label: 'Acciones'},
 	]);
 
 	// create an array with edges
