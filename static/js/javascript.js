@@ -1,0 +1,11 @@
+<script type="text/javascript" src="vis.js"></script>
+// Get the modal
+var modal = document.getElementById('openNewDevice');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+	if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
