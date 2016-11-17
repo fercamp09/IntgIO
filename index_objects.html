@@ -1,12 +1,11 @@
-{% load static %}
 </<!DOCTYPE html>
 
 <html>
 <head>
 	<title></title>
 	
-	<script type="text/javascript" src="{% static 'js/vis.js' %}"></script>
-    <link href="{% static 'css/vis-network.min.css' %}" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="static/js/vis.js"></script>
+    <link href="static/css/vis-network.min.css" rel="stylesheet" type="text/css" />
 	<style type="text/css">
 		
 	    #mynetwork {
@@ -50,6 +49,6 @@
   var options = {};
   var network = new vis.Network(container, data, options);
 </script>
-<script src="{% static 'js/googleAnalytics.js' %}"></script>
+<script src="/static/js/googleAnalytics.js"></script>
 </body>
 </html>
