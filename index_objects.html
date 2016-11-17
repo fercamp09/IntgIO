@@ -6,24 +6,204 @@
 	
 	<script type="text/javascript" src="static/js/vis.js"></script>
     <link href="static/css/vis-network.min.css" rel="stylesheet" type="text/css" />
+    <link href="static/css/menu.css" rel="stylesheet" type="text/css" />
 	<style type="text/css">
-		
+		input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+	}
+	
+	/* Set a style for all buttons */
+	button {
+	    background-color: #4CAF50;
+	    color: white;
+	    padding: 14px 20px;
+	    margin: 8px 0;
+	    border: none;
+	    cursor: pointer;
+	    width: 100%;
+	}
+	
+	/* Extra styles for the cancel button */
+	.cancelbtn {
+	    width: auto;
+	    padding: 10px 18px;
+	    background-color: #f44336;
+	}
+	
+	/* Center the image and position the close button */
+	.imgcontainer {
+	    text-align: center;
+	    margin: 24px 0 12px 0;
+	    position: relative;
+	}
+	
+	img.avatar {
+	    width: 40%;
+	    border-radius: 50%;
+	}
+	
+	.container {
+	    padding: 16px;
+	}
+	
+	span.psw {
+	    float: right;
+	    padding-top: 16px;
+	}
+	
+	/* The Modal (background) */
+	.modal {
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    background-color: rgb(0,0,0); /* Fallback color */
+	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	    padding-top: 60px;
+	}
+	
+	/* Modal Content/Box */
+	.modal-content {
+	    background-color: #fefefe;
+	    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+	    border: 1px solid #888;
+	    width: 80%; /* Could be more or less, depending on screen size */
+	}
+	
+	/* The Close Button (x) */
+	.close {
+	    position: absolute;
+	    right: 25px;
+	    top: 0;
+	    color: #000;
+	    font-size: 35px;
+	    font-weight: bold;
+	}
+	
+	.close:hover,
+	.close:focus {
+	    color: red;
+	    cursor: pointer;
+	}
+	
+	/* Add Zoom Animation */
+	.animate {
+	    -webkit-animation: animatezoom 0.6s;
+	    animation: animatezoom 0.6s
+	}
+	
+	@-webkit-keyframes animatezoom {
+	    from {-webkit-transform: scale(0)}
+	    to {-webkit-transform: scale(1)}
+	}
+	    
+	@keyframes animatezoom {
+	    from {transform: scale(0)}
+	    to {transform: scale(1)}
+	}
+	
+	/* Change styles for span and cancel button on extra small screens */
+	@media screen and (max-width: 300px) {
+	    span.psw {
+	       display: block;
+	       float: none;
+	    }
+	    .cancelbtn {
+	       width: 100%;
+	    }
+	}
 	    #mynetwork {
 	      width: 600px;
 	      height: 400px;
 	      border: 1px solid lightgray;
-	    } 
+	    }
+/*
+	    .close {
+			background: #606061;
+			color: #FFFFFF;
+			line-height: 25px;
+			position: absolute;
+			right: -12px;
+			text-align: center;
+			top: -10px;
+			width: 24px;
+			text-decoration: none;
+			font-weight: bold;
+			-webkit-border-radius: 12px;
+			-moz-border-radius: 12px;
+			border-radius: 12px;
+			-moz-box-shadow: 1px 1px 3px #000;
+			-webkit-box-shadow: 1px 1px 3px #000;
+			box-shadow: 1px 1px 3px #000;
+		}
+		
+		.close:hover { background: #00d9ff; } 
+*/
 	</style>
 
 </head>
 <body>
-<p>prueba de div con vis.js</p>
+<h1>intgIO</h1>
+<div>
+	<div class="wrapper" style="float: left">
+	  <nav class="vertical">
+	    <ul>
+	      <li>
+	        <a href="#">Menu</a>
+	        <div>
+	          <ul>
+	            <li><a onclick="document.getElementById('openNewDevice').style.display='block'" style="width:auto;">Nuevo Dispositivo</a></li>
+	            <li><a href="#">Conexion</a></li>
+	            <li><a href="#">Eliminar</a></li>
+	            <li><a href="#">Ejecutar Acciones</a></li>
+	            <li><a href="#">Informacion</a></li>
+	          </ul>
+	        </div>
+	      </li>
+	    </ul>
+	  </nav>
+	</div>
+	<div id="mynetwork" style="float: right">
+	</div>
+</div>
+<div id="openNewDevice" class="modal">
+	<form class="modal-content animate" action="action_page.php">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('openNewDevice').style.display='none'" class="close" title="Close Modal">&times;</span>
+    </div>
 
-<div id="mynetwork">
-	
+    <div class="container">
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
 
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit">Guardar</button>
+    </div>
+  </form>
 </div>
 
+<script>
+	// Get the modal
+	var modal = document.getElementById('openNewDevice');
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+</script>
 <script type="text/javascript">
   // create an array with nodes
   var nodes = new vis.DataSet([
@@ -49,6 +229,5 @@
   var options = {};
   var network = new vis.Network(container, data, options);
 </script>
-<script src="/static/js/googleAnalytics.js"></script>
 </body>
 </html>
