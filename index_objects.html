@@ -66,7 +66,19 @@
 					<input type="text" placeholder="Modelo Dispositivo" name="modelDevice" required>
 		        </div>
 		        <div class="content-2">
-		            Contenido2
+		            <input type="text" placeholder="Nombre Objeto" name="nameObject" required>
+					<input type="text" placeholder="Codigo Objeto" name="codeObject" required>
+					<select placeholder="Tipo Objeto" name="typeObject">
+					    <option value="SC">Source</option>
+					    <option value="SK">Sync</option>
+					    <option value="SCK">Hybrid</option>
+					 </select>
+					 <select placeholder="Tipo Comunicacion" name="typeComunicationObject">
+					    <option value="http">HTTP</option>
+					    <option value="ftp">FTP</option>
+					    <option value="udp">UDP</option>
+					    <option value="serial">SERIAL</option>
+					 </select>
 		        </div>
 		        <div class="content-3">
 		            Contenido3
@@ -76,8 +88,8 @@
       
       </div>
       <div style="height: 10%;">
-      		<button type="button" style=" width: 100px; float: right;height: 94%;">Cancelar</button>
-	      	<button type="submit" style=" width: 100px; margin-right: 18px; float: right;height: 94%;">Guardar</button>
+      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">Cancelar</button>
+	      	<button type="button" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">Guardar</button>
       </div>
     </div>
   </form>
@@ -85,9 +97,9 @@
 <script type="text/javascript">
 	// create an array with nodes
 	var nodes = new vis.DataSet([
-		{id: 1, label: 'Dispositivo'},
-		{id: 2, label: 'Objeto'},
-		{id: 3, label: 'Acciones'},
+		{id: 1, label: 'Dispositivo', color: 'lime'},
+		{id: 2, label: 'Objeto', color: 'rgb(255,168,7)'},
+		{id: 3, label: 'Acciones', color: 'rgba(97,195,238,0.5)'},
 	]);
 
 	// create an array with edges
