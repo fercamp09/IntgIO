@@ -34,7 +34,7 @@
 	<div style="width: 70%;height: 78%;float: right;">
 		<div style=" height: 10%;width: 330px;">
 			<a class="fa fa-search btn" aria-hidden="true" style=" font-size: 27px; float: left;"></a>
-			<a class="fa fa-eraser btn" aria-hidden="true" style=" font-size: 27px;float: right;     width: 222px;">  Limpiar Board</a>
+			<button class="fa fa-eraser btn" aria-hidden="true" style=" font-size: 20px;float: right; width: 222px;" onclick="clearBoard()">  Limpiar Tablero</button>
 		</div>
 		<div id="mynetwork" >
 		</div>
@@ -118,9 +118,9 @@
 	      	      <br>
 	      	      <div style="float: left;    margin-left: 10%;">
 		      	      <i class="fa fa-user" aria-hidden="true"></i>
-		      	      <label>Kevin Campuzano</label><br>
+		      	      <label>Kevin Campuzano Castillo</label><br>
 		      	      <i class="fa fa-envelope" aria-hidden="true"></i>
-		      	      <a href="mailto:@espol.edu.ec" style="color: cadetblue;">@espol.edu.ec</a>
+		      	      <a href="mailto:kegucamp@espol.edu.ec" style="color: cadetblue;">kegucamp@espol.edu.ec</a>
 	      	      </div>
 	      </div>
 	      <div style="height: 10%;">
@@ -151,6 +151,21 @@
 	};
 	var options = {};
 	var network = new vis.Network(container, data, options);
+	
+	function destroy() {
+      if (network !== null) {
+        network.destroy();
+        network = null;
+      }
+    }
+    
+    function clearBoard(){
+	    destroy();
+	    var container = document.getElementById('mynetwork');
+	    var options = {};
+	    var data = {};
+		network = new vis.Network(container,data,options)
+    }
 </script>
 </body>
 </html>
