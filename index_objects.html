@@ -24,7 +24,7 @@
 	            <li><a class="fa fa-link" href="#">            Conexi&oacute;n</a></li>
 	            <li><a class="fa fa-exchange" href="#">   Ejecutar Acciones</a></li>
 	            <li><a class="fa fa-trash" href="#">            Eliminar</a></li>
-	            <li><a class="fa fa-info" href="#">         Informaci&oacute;n</a></li>
+	            <li><a class="fa fa-info" onclick="document.getElementById('informacion').style.display='block'" >   Informaci&oacute;n</a></li>
 	          </ul>
 	        </div>
 	      </li>
@@ -41,7 +41,7 @@
 	</div>
 </div>
 <div id="openNewDevice" class="modal">
-	<form class="modal-content animate" action="action_page.php">
+	<form class="modal-content animate" action="#">
     <div class="imgcontainer">
       <span onclick="document.getElementById('openNewDevice').style.display='none'" class="close" title="Close Modal">&times;</span>
     </div>
@@ -89,10 +89,45 @@
       </div>
       <div style="height: 10%;">
       		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">Cancelar</button>
-	      	<button type="button" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">Guardar</button>
+	      	<input type="submit" name="submit" id="submit" value="Guardar" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">
       </div>
     </div>
   </form>
+</div>
+
+<div id="informacion" class="modal">
+	<div class="modal-content animate" >
+		<div class="imgcontainer">
+	      <span onclick="document.getElementById('informacion').style.display='none'" class="close" title="Close Modal">&times;</span>
+	    </div>
+	    <div class="container" style=" height: 100%;">
+	      <label><b>Informaci&oacute;n</b></label>
+	      <div style=" height: 75%;margin-top: 7px;">
+	      	      <p style=" font-size: 24px;"><b>IntgIo   Version 1.0</b></p>
+	      	      <p style=" float: left; margin-left: 4%;"><b>&iquest; Qu&eacute; es IntgIO ?</b></p>
+	      	      <p style="float: left; margin-left: 4%;font-weight: 600;margin-top: 0px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,</p>
+
+	      	      <label style="float: left;    margin-left: 4%;">Contactos:</label>
+	      	      <br>
+	      	      <div style="float: left;    margin-left: 10%;">
+		      	      <i class="fa fa-user" aria-hidden="true"></i>
+		      	      <label>Jaime Adri&aacute;n Aguilar</label><br>
+		      	      <i class="fa fa-envelope" aria-hidden="true"></i>
+		      	      <a href="mailto:jaaguila@espol.edu.ec" style="color: cadetblue;">jaaguila@espol.edu.ec</a>
+		      	  </div>
+	      	      <br>
+	      	      <div style="float: left;    margin-left: 10%;">
+		      	      <i class="fa fa-user" aria-hidden="true"></i>
+		      	      <label>Kevin Campuzano</label><br>
+		      	      <i class="fa fa-envelope" aria-hidden="true"></i>
+		      	      <a href="mailto:@espol.edu.ec" style="color: cadetblue;">@espol.edu.ec</a>
+	      	      </div>
+	      </div>
+	      <div style="height: 10%;">
+	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('informacion').style.display='none'">Cerrar</button>
+		  </div>
+	    </div>
+	</div>
 </div>
 <script type="text/javascript">
 	// create an array with nodes
