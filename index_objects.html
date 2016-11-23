@@ -67,8 +67,92 @@
 					<input type="text" placeholder="Tipo Dispositivo" id="typeDevice" required>
 					<input type="text" placeholder="Modelo Dispositivo" id="modelDevice" required>
 		        </div>
-		        <div class="content-2">
-		            <input type="text" placeholder="Nombre Objeto" id="nameObject" required>
+		        <div class="content-2" style=" width: 90%;">
+		            <table>
+						<tr>
+							<th>C&oacute;digo </th>
+							<th>Nombre</th>
+							<th>tipo</th>
+							<th>Comunicaci&oacute;n</th>
+							<th>Eliminar</th>
+						</tr>
+						<tr>
+							<td>obj1</td>
+							<td>cod1</td>
+							<td>emisor</td>
+							<td>html</td>
+							<td><input type="button" class="butonTable" value="Eliminar"></td>
+						</tr>
+						<tr>
+							<td>obj2</td>
+							<td>cod2</td>
+							<td>receptor</td>
+							<td>ftp</td>
+							<td><input type="button" class="butonTable" value="Eliminar"></td>
+						</tr>
+						<tr>
+							<td>obj3</td>
+							<td>cod3</td>
+							<td>h&iacute;brido</td>
+							<td>udp</td>
+							<td><input type="button" class="butonTable" value="Eliminar"></td>
+						</tr>
+						
+					</table>
+					<input type="button" class="butonTableF" value="Crear">
+				</div>
+		        <div class="content-3" style=" width: 90%;">
+		        	<table>
+						<tr>
+							<th>Nombre</th>
+							<th>tipo</th>
+							<th>Acci&oacute;n</th>
+							<th>Eliminar</th>
+						</tr>
+						<tr>
+							<td>obj1</td>
+							<td>cod1</td>
+							<td>emisor</td>
+							<td><input type="button" class="butonTable" value="Eliminar"></td>
+						</tr>
+						<tr>
+							<td>obj2</td>
+							<td>cod2</td>
+							<td>receptor</td>
+							<td><input type="button" class="butonTable" value="Eliminar"></td>
+						</tr>
+						<tr>
+							<td>obj3</td>
+							<td>cod3</td>
+							<td>hibrido</td>
+							<td><input type="button" class="butonTable" value="Eliminar"></td>
+						</tr>
+						
+					</table>
+		            <input type="button" class="butonTableF" value="Crear">
+		        </div>
+		    </div>
+		</div>
+      
+      </div>
+      <div style="height: 10%;">
+      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">Cancelar</button>
+	      	<input type="submit" name="submit" id="submit" value="Guardar" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="NuevoObjeto" class="modal">
+	<div class="modal-content animate" >
+		<div class="imgcontainer">
+	      <span onclick="document.getElementById('NuevoObjeto').style.display='none'" class="close" title="Close Modal">&times;</span>
+	    </div>
+	    <div class="container" style=" height: 100%;">
+	      <label><b>Nuevo Objeto</b></label>
+	      <div style=" height: 75%;margin-top: 7px;">
+	      	<div id="contenedor">
+	      	      <input type="text" placeholder="Nombre Objeto" id="nameObject" required>
 					<input type="text" placeholder="Codigo Objeto" id="codeObject" required>
 					Tipo de Objeto:
 					<select placeholder="Tipo Objeto" id="typeObject">
@@ -83,37 +167,23 @@
 						<option value="udp">UDP</option>
 						<option value="serial">SERIAL</option>
 					</select>
-					<div id="html">
-						 <input type="text" placeholder="Direccion IP" id="iphtml" style="width: 26%; height: 31px; " >
-						 <input type="text" placeholder="Puerto" id="puertohtml" style="width: 12%; height: 31px; " >
-					</div>
-					<div id="ftp">
-						 <input type="text" placeholder="Dominio ftp" id="dominio" style="width: 26%; height: 31px; " >
-						 <input type="text" placeholder="Puerto" id="puertoftp" style="width: 12%; height: 31px; " >
-					</div>
-					<div id="udp">
-						 <input type="text" placeholder="Direccion IP" id="ipudp" style="width: 26%; height: 31px; " >
-						 <input type="text" placeholder="Puerto" id="puertoudp" style="width: 12%; height: 31px; " >
-					</div>
-					<div id="serial">
-						 <input type="text" placeholder="Dispositivo Ej: /dev/ttyUSB0" id="dispositivoserial" style="width: 26%; height: 31px; " >
-						 <input type="text" placeholder="Direccion IP" id="ipserial" style="width: 26%; height: 31px; " >
-						 <input type="text" placeholder="Puerto" id="puertoserial" style="width: 12%; height: 31px; " >
-					</div>
-		        </div>
-		        <div class="content-3">
-		            Contenido3
-		        </div>
-		    </div>
-		</div>
-      
-      </div>
-      <div style="height: 10%;">
-      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">Cancelar</button>
-	      	<input type="submit" name="submit" id="submit" value="Guardar" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">
-      </div>
-    </div>
-  </form>
+					<input type="text" placeholder="Direccion IP" id="iphtml" style="width: 26%; height: 31px; display: block " >
+					<input type="text" placeholder="Puerto" id="puertohtml" style="width: 12%; height: 31px; display: block " >
+					<input type="text" placeholder="Dominio ftp" id="dominio" style="width: 26%; height: 31px; display: none " >
+					<input type="text" placeholder="Puerto" id="puertoftp" style="width: 12%; height: 31px; display: none " >
+					<input type="text" placeholder="Direccion IP" id="ipudp" style="width: 26%; height: 31px; display: none " >
+					<input type="text" placeholder="Puerto" id="puertoudp" style="width: 12%; height: 31px; display: none" >
+					<input type="text" placeholder="Dispositivo Ej: /dev/ttyUSB0" id="dispositivoserial" style="width: 26%; height: 31px; display: none" >
+					<input type="text" placeholder="Direccion IP" id="ipserial" style="width: 26%; height: 31px; display: none" >
+					<input type="text" placeholder="Puerto" id="puertoserial" style="width: 12%; height: 31px; display: none" >
+			</div>
+	      </div>
+	      <div style="height: 10%;">
+	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('NuevoObjeto').style.display='none'">Cancelar</button>
+	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('NuevoObjeto').style.display='none'">Guardar</button>
+		  </div>
+	    </div>
+	</div>
 </div>
 <!--seccion de informacion-->
 <div id="informacion" class="modal">
@@ -150,6 +220,7 @@
 	    </div>
 	</div>
 </div>
+
 <script type="text/javascript">
 	// create an array with nodes
 	var nodes = new vis.DataSet([
@@ -196,29 +267,45 @@
 	$(document).ready(function(){
 	   $('#typeComunicationObject').on('change', function() {
 	   		if (this.value == "http"){
-	   			$('#html').css("display","block");
-	   			$('#ftp').css("display","none");
-	   			$('#udp').css("display","none");
-	   			$('#serial').css("display","none");
-	   			//alert( this.value );
+	   			$('#puertohtml').css("display","block");
+	   			$('#iphtml').css("display","block");
+	   			$('#dominio').css("display","none");
+	   			$('#puertoftp').css("display","none");
+	   			$('#puertoudp').css("display","none");
+	   			$('#ipudp').css("display","none");
+	   			$('#dispositivoserial').css("display","none");
+	   			$('#ipserial').css("display","none");
+	   			$('#puertoserial').css("display","none");
 	   		}else if (this.value == "ftp"){
-	   			$('#html').css("display","none");
-	   			$('#ftp').css("display","block");
-	   			$('#udp').css("display","none");
-	   			$('#serial').css("display","none");
-	   			//alert( this.value );
+	   			$('#puertohtml').css("display","none");
+	   			$('#iphtml').css("display","none");
+	   			$('#dominio').css("display","block");
+	   			$('#puertoftp').css("display","block");
+	   			$('#puertoudp').css("display","none");
+	   			$('#ipudp').css("display","none");
+	   			$('#dispositivoserial').css("display","none");
+	   			$('#ipserial').css("display","none");
+	   			$('#puertoserial').css("display","none");
 	   		}else if (this.value == "udp"){
-	   			$('#html').css("display","none");
-	   			$('#ftp').css("display","none");
-	   			$('#udp').css("display","block");
-	   			$('#serial').css("display","none");
-	   			//alert( this.value );
+	   			$('#puertohtml').css("display","none");
+	   			$('#iphtml').css("display","none");
+	   			$('#dominio').css("display","none");
+	   			$('#puertoftp').css("display","none");
+	   			$('#puertoudp').css("display","block");
+	   			$('#ipudp').css("display","block");
+	   			$('#dispositivoserial').css("display","none");
+	   			$('#ipserial').css("display","none");
+	   			$('#puertoserial').css("display","none");
 	   		}else if (this.value == "serial"){
-	   			$('#html').css("display","none");
-	   			$('#ftp').css("display","none");
-	   			$('#udp').css("display","none");
-	   			$('#serial').css("display","block");
-	   			//alert( this.value );
+	   			$('#puertohtml').css("display","none");
+	   			$('#iphtml').css("display","none");
+	   			$('#dominio').css("display","none");
+	   			$('#puertoftp').css("display","none");
+	   			$('#puertoudp').css("display","none");
+	   			$('#ipudp').css("display","none");
+	   			$('#dispositivoserial').css("display","block");
+	   			$('#ipserial').css("display","block");
+	   			$('#puertoserial').css("display","block");
 	   		}
 		  
 		})

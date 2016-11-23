@@ -23,6 +23,47 @@ body {
     margin-top: 40px;
     text-rendering: optimizeLegibility;
 }
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #2B59A2;
+    color: white;
+}
+.butonTable{
+    width: 58%;
+    height: 24px;
+    font-size: 14px;
+    border-radius: 22px 5px;
+    background-color: #f56738;
+    color: white;
+}
+.butonTable:hover{
+    background-color:#a22b04;
+}
+
+.butonTableF{
+    width: 8%;
+    height: 24px;
+    font-size: 14px;
+    border-radius: 22px 5px;
+    background-color: #2B59A2;
+    color: white;
+    margin-top: 10px;
+}
+
+.butonTableF:hover{
+    background-color:#4E6FB8;
+}
 
 div.wrapper {
   margin: 20px auto;
