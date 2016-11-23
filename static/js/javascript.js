@@ -1,4 +1,3 @@
-<script type="text/javascript" src="vis.js"></script>
 // Get the modal
 var modal = document.getElementById('openNewDevice');
 

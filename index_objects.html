@@ -74,6 +74,7 @@
 							<th>Nombre</th>
 							<th>tipo</th>
 							<th>Comunicaci&oacute;n</th>
+							<th>Editar</th>
 							<th>Eliminar</th>
 						</tr>
 						<tr>
@@ -81,6 +82,7 @@
 							<td>cod1</td>
 							<td>emisor</td>
 							<td>html</td>
+							<td><input type="button" class="butonTable" value="Editar"></td>
 							<td><input type="button" class="butonTable" value="Eliminar"></td>
 						</tr>
 						<tr>
@@ -88,6 +90,7 @@
 							<td>cod2</td>
 							<td>receptor</td>
 							<td>ftp</td>
+							<td><input type="button" class="butonTable" value="Editar"></td>
 							<td><input type="button" class="butonTable" value="Eliminar"></td>
 						</tr>
 						<tr>
@@ -95,41 +98,46 @@
 							<td>cod3</td>
 							<td>h&iacute;brido</td>
 							<td>udp</td>
+							<td><input type="button" class="butonTable" value="Editar"></td>
 							<td><input type="button" class="butonTable" value="Eliminar"></td>
 						</tr>
 						
 					</table>
-					<input type="button" class="butonTableF" value="Crear">
+					<input type="button" class="butonTableF" value="Nuevo Objeto" style ="width: 300px" onclick="document.getElementById('NuevoObjeto').style.display='block'">
 				</div>
 		        <div class="content-3" style=" width: 90%;">
 		        	<table>
 						<tr>
 							<th>Nombre</th>
 							<th>tipo</th>
-							<th>Acci&oacute;n</th>
+							<th>Descripci&oacute;n</th>
+							<th>Editar</th>
 							<th>Eliminar</th>
 						</tr>
 						<tr>
 							<td>obj1</td>
 							<td>cod1</td>
 							<td>emisor</td>
+							<td><input type="button" class="butonTable" value="Editar"></td>
 							<td><input type="button" class="butonTable" value="Eliminar"></td>
 						</tr>
 						<tr>
 							<td>obj2</td>
 							<td>cod2</td>
 							<td>receptor</td>
+							<td><input type="button" class="butonTable" value="Editar"></td>
 							<td><input type="button" class="butonTable" value="Eliminar"></td>
 						</tr>
 						<tr>
 							<td>obj3</td>
 							<td>cod3</td>
 							<td>hibrido</td>
+							<td><input type="button" class="butonTable" value="Editar"></td>
 							<td><input type="button" class="butonTable" value="Eliminar"></td>
 						</tr>
 						
 					</table>
-		            <input type="button" class="butonTableF" value="Crear">
+		            <input type="button" class="butonTableF" value="Nueva Acci&oacute;n" style ="width: 300px" onclick="document.getElementById('NuevoObjeto').style.display='block'">
 		        </div>
 		    </div>
 		</div>
@@ -142,48 +150,48 @@
     </div>
   </form>
 </div>
-
+<!--seccion nuevo Objecto-->
 <div id="NuevoObjeto" class="modal">
-	<div class="modal-content animate" >
+	<form class="modal-content animate" action="#">
 		<div class="imgcontainer">
 	      <span onclick="document.getElementById('NuevoObjeto').style.display='none'" class="close" title="Close Modal">&times;</span>
 	    </div>
 	    <div class="container" style=" height: 100%;">
 	      <label><b>Nuevo Objeto</b></label>
-	      <div style=" height: 75%;margin-top: 7px;">
+	      <div style=" height: 80%;margin-top: 7px;">
 	      	<div id="contenedor">
-	      	      <input type="text" placeholder="Nombre Objeto" id="nameObject" required>
-					<input type="text" placeholder="Codigo Objeto" id="codeObject" required>
-					Tipo de Objeto:
-					<select placeholder="Tipo Objeto" id="typeObject">
-					    <option value="SC">Emisor</option>
-					    <option value="SK">Receptor</option>
-					    <option value="SCK">Hibrido</option>
-					</select>
-						Tipo de Comunicaci&oacute;n:
-						<select placeholder="Tipo Comunicacion"  id="typeComunicationObject">
+		      	<input type="text" placeholder="Nombre Objeto" id="nameObject" required>
+		      	<input type="text" placeholder="Codigo Objeto" id="codeObject" required>
+		      	Tipo de Objeto:
+		      	<select placeholder="Tipo Objeto" id="typeObject">
+				    <option value="SC">Emisor</option>
+				    <option value="SK">Receptor</option>
+				    <option value="SCK">Hibrido</option>
+				</select>
+				Tipo de Comunicaci&oacute;n:
+					<select placeholder="Tipo Comunicacion"  id="typeComunicationObject">
 						<option value="http">HTTP</option>
 						<option value="ftp">FTP</option>
 						<option value="udp">UDP</option>
 						<option value="serial">SERIAL</option>
 					</select>
-					<input type="text" placeholder="Direccion IP" id="iphtml" style="width: 26%; height: 31px; display: block " >
-					<input type="text" placeholder="Puerto" id="puertohtml" style="width: 12%; height: 31px; display: block " >
-					<input type="text" placeholder="Dominio ftp" id="dominio" style="width: 26%; height: 31px; display: none " >
-					<input type="text" placeholder="Puerto" id="puertoftp" style="width: 12%; height: 31px; display: none " >
-					<input type="text" placeholder="Direccion IP" id="ipudp" style="width: 26%; height: 31px; display: none " >
-					<input type="text" placeholder="Puerto" id="puertoudp" style="width: 12%; height: 31px; display: none" >
-					<input type="text" placeholder="Dispositivo Ej: /dev/ttyUSB0" id="dispositivoserial" style="width: 26%; height: 31px; display: none" >
-					<input type="text" placeholder="Direccion IP" id="ipserial" style="width: 26%; height: 31px; display: none" >
-					<input type="text" placeholder="Puerto" id="puertoserial" style="width: 12%; height: 31px; display: none" >
+				<input type="text" placeholder="Direccion IP" id="iphtml" style="width: 26%; height: 31px; display: block " >
+				<input type="text" placeholder="Puerto" id="puertohtml" style="width: 12%; height: 31px; display: block " >
+				<input type="text" placeholder="Dominio ftp" id="dominio" style="width: 26%; height: 31px; display: none " >
+				<input type="text" placeholder="Puerto" id="puertoftp" style="width: 12%; height: 31px; display: none " >
+				<input type="text" placeholder="Direccion IP" id="ipudp" style="width: 26%; height: 31px; display: none " >
+				<input type="text" placeholder="Puerto" id="puertoudp" style="width: 12%; height: 31px; display: none" >
+				<input type="text" placeholder="Dispositivo Ej: /dev/ttyUSB0" id="dispositivoserial" style="width: 26%; height: 31px; display: none" >
+				<input type="text" placeholder="Direccion IP" id="ipserial" style="width: 26%; height: 31px; display: none" >
+				<input type="text" placeholder="Puerto" id="puertoserial" style="width: 12%; height: 31px; display: none" >
 			</div>
 	      </div>
 	      <div style="height: 10%;">
 	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('NuevoObjeto').style.display='none'">Cancelar</button>
-	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('NuevoObjeto').style.display='none'">Guardar</button>
+	      		<button type="submit" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('NuevoObjeto').style.display='none'">Guardar</button>
 		  </div>
 	    </div>
-	</div>
+	</form>
 </div>
 <!--seccion de informacion-->
 <div id="informacion" class="modal">
@@ -222,6 +230,39 @@
 </div>
 
 <script type="text/javascript">
+	// Init
+/*
+	function init(){
+		
+		var deviceA = new Object(),
+			code = "dev_a",
+			name = "Dispositivo A",
+			type = "",
+			model = "",
+			objects = [objectA],
+			active = 1
+		}
+		var objectA = {
+			code="",
+			name="",
+			type="SC",
+			typeCommunication="fttp",
+			actions = [actionA],
+			active = 1
+		}
+		
+		var actionA = {
+			id = "",
+			name="",
+			type="",
+			description =""
+		}
+		
+		var devices = [deviceA]
+		var objects = [objectA]
+	}
+*/
+	
 	// create an array with nodes
 	var nodes = new vis.DataSet([
 		{id: 1, label: 'Dispositivo', color: 'lime'},
