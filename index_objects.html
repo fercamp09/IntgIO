@@ -137,7 +137,7 @@
 						</tr>
 						
 					</table>
-		            <input type="button" class="butonTableF" value="Nueva Acci&oacute;n" style ="width: 300px" onclick="document.getElementById('NuevoObjeto').style.display='block'">
+		            <input type="button" class="butonTableF" value="Nueva Acci&oacute;n" style ="width: 300px" onclick="document.getElementById('nuevaAccion').style.display='block'">
 		        </div>
 		    </div>
 		</div>
@@ -189,6 +189,34 @@
 	      <div style="height: 10%;">
 	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('NuevoObjeto').style.display='none'">Cancelar</button>
 	      		<button type="submit" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('NuevoObjeto').style.display='none'">Guardar</button>
+		  </div>
+	    </div>
+	</form>
+</div>
+<!--seccion nueva Accion-->
+<div id="nuevaAccion" class="modal">
+	<form class="modal-content animate" action="#">
+		<div class="imgcontainer">
+	      <span onclick="document.getElementById('nuevaAccion').style.display='none'" class="close" title="Close Modal">&times;</span>
+	    </div>
+	    <div class="container" style=" height: 100%;">
+	      <label><b>Nueva Accion</b></label>
+	      <div style=" height: 80%;margin-top: 7px;">
+	      	<div id="contenedor">
+		      	<input type="text" placeholder="Nombre Accion" id="nameAction" required>
+		      	Tipo de Acci&oacute;n:
+		      	<select placeholder="Tipo Acci&oacute;n" id="typeObject">
+				    <option value="SC">Incremental</option>
+				    <option value="SK">Bit</option>
+				</select>
+				Descripci&oacute;n:
+				<textarea rows="4" cols="50">
+				</textArea>	
+			</div>
+	      </div>
+	      <div style="height: 10%;">
+	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('nuevaAccion').style.display='none'">Cancelar</button>
+	      		<button type="submit" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('nuevaAccion').style.display='none'">Guardar</button>
 		  </div>
 	    </div>
 	</form>
