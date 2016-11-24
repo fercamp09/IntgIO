@@ -24,6 +24,18 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+
+select {
+   margin: 20px auto 40px auto;
+    border: 1px solid #d9d9d9;
+    height: 30px;
+    overflow: hidden;
+    width: 230px;
+    position: relative;
+}
+select:focus{ outline: none;}
+
+
 .inputs_tabla_objetos {
     border: 0 !important;;
     background-color: #Ddd !important;;
@@ -52,11 +64,11 @@ th {
     height: 24px;
     font-size: 14px;
     border-radius: 22px 5px;
-    background-color: #f56738;
+    background-color: #a22b04;
     color: white;
 }
 .butonTable:hover{
-    background-color:#a22b04;
+    background-color:#f56738;
 }
 
 .butonTableF{

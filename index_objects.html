@@ -10,38 +10,7 @@
     <link href="static/css/vis-network.min.css" rel="stylesheet" type="text/css" />
     <link href="static/css/styles.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
-    <script>
-    	function crearObjeto(){
-    		var nameObject=document.getElementById("nameObject").value
-    		var codeObject=document.getElementById("codeObject").value
-    		var typeObject=document.getElementById("typeObject").value
-    		var typeComunicationObject=document.getElementById("typeComunicationObject").value
-    		var tdnombre = '<td><input type="text" name="" value="'+nameObject+'" class="inputs_tabla_objetos" readonly></td>';
-    		var tdcodigo = '<td><input type="text" name="" value="'+codeObject+'" class="inputs_tabla_objetos" readonly></td>';
-    		var tdtipo_objeto = '<td><input type="text" name="" value="'+typeObject+'" class="inputs_tabla_objetos" readonly></td>';
-			var tdtipo_comunicacion = '<td><input type="text" name="" value="'+typeComunicationObject+'" class="inputs_tabla_objetos" readonly></td>';
-    		//validaciones para guardar en la base
-    		/*if(tipo== "html"){
-
-    		}else if(tipo== "ftp"){
-
-    		}
-    		else if(tipo== "udp"){
-
-    		}else if(tipo== "serial"){
-
-    		}*/
-    		
-    		var btnElim = '<td><input id="" type="button" class="butonTable" value="Editar"> </td>';
-            var btnEdit = '<td><input id="" type="button" class="butonTable" value="Eliminar"> </td>';
-            
-            $('#table_body').append('<tr>' + tdnombre + tdcodigo + tdtipo_objeto + tdtipo_comunicacion + btnEdit + btnElim + '</tr>');
-        	document.getElementById('NuevoObjeto').style.display='none'
-        	var nameObject=document.getElementById("nameObject").value="";
-    		var codeObject=document.getElementById("codeObject").value="";
-    		var typeObject=document.getElementById("typeObject").value="";
-    	}
-    </script>
+    
 </head>
 <body>
 <h1 style="font-size: 52px;  margin-left: 90px;">IntgIO</h1>
@@ -53,11 +22,11 @@
 	        <a href="#">Menu</a>
 	        <div>
 	          <ul>
-	            <li><a class="fa fa-file-o" onclick="document.getElementById('openNewDevice').style.display='block'" style="width:auto;">   Nuevo Dispositivo</a></li>
+	            <li><a id="tagnuevoDispositivo" class="fa fa-file-o" style="width:auto;">   Nuevo Dispositivo</a></li>
 	            <li><a class="fa fa-link" href="#">            Conexi&oacute;n</a></li>
 	            <li><a class="fa fa-exchange" href="#">   Ejecutar Acciones</a></li>
 	            <li><a class="fa fa-trash" href="#">            Eliminar</a></li>
-	            <li><a class="fa fa-info" onclick="document.getElementById('informacion').style.display='block'" >   Informaci&oacute;n</a></li>
+	            <li><a id="taginformacion" class="fa fa-info" >   Informaci&oacute;n</a></li>
 	          </ul>
 	        </div>
 	      </li>
@@ -73,11 +42,13 @@
 		</div>
 	</div>
 </div>
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <!--seccion nuevo dispositivo-->
 <div id="openNewDevice" class="modal">
 	<form class="modal-content animate" action="#">
     <div class="imgcontainer">
-      <span onclick="document.getElementById('openNewDevice').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <!--<span onclick='document.getElementById("openNewDevice").style.display="none"' class="close" title="Close Modal">&times;</span>-->
     </div>
     <div class="container" style=" height: 100%;">
       <label><b>Nuevo Dispositivo</b></label>
@@ -112,70 +83,49 @@
 							</tr>
 					    </thead>
 						<tbody id="table_body">
-							<tr>
-								<td><input type="text" name="" class="inputs_tabla_objetos" value="obj1" readonly></td>
-    							<td><input type="text" name="" class="inputs_tabla_objetos" value="34534" readonly></td>
-    							<td><input type="text" name="" class="inputs_tabla_objetos" value="hibrido" readonly></td>
-								<td><input type="text" name="" class="inputs_tabla_objetos" value="udp" readonly></td>
-								<td><input type="button" class="butonTable" value="Editar"></td>
-								<td><input type="button" class="butonTable" value="Eliminar"></td>
-							</tr>
+							
 						</tbody>
 						
 						
 					</table>
-					<input type="button" class="butonTableF" value="Nuevo Objeto" style ="width: 300px" onclick="document.getElementById('NuevoObjeto').style.display='block'">
+					<input type="button" class="butonTableF" value="Nuevo Objeto" id="btnnuevoobjeto" style ="width: 300px" >
 				</div>
 		        <div class="content-3" style=" width: 90%;">
 		        	<table>
-						<tr>
-							<th>Nombre</th>
-							<th>tipo</th>
-							<th>Descripci&oacute;n</th>
-							<th>Editar</th>
-							<th>Eliminar</th>
-						</tr>
-						<tr>
-							<td>obj1</td>
-							<td>cod1</td>
-							<td>emisor</td>
-							<td><input type="button" class="butonTable" value="Editar"></td>
-							<td><input type="button" class="butonTable" value="Eliminar"></td>
-						</tr>
-						<tr>
-							<td>obj2</td>
-							<td>cod2</td>
-							<td>receptor</td>
-							<td><input type="button" class="butonTable" value="Editar"></td>
-							<td><input type="button" class="butonTable" value="Eliminar"></td>
-						</tr>
-						<tr>
-							<td>obj3</td>
-							<td>cod3</td>
-							<td>h&iacute;brido</td>
-							<td><input type="button" class="butonTable" value="Editar"></td>
-							<td><input type="button" class="butonTable" value="Eliminar"></td>
-						</tr>
+		        		<thead>
+							<tr>
+								<th>C&oacute;digo</th>
+								<th>Nombre</th>
+								<th>tipo</th>
+								<th>Editar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody id="table_body2">
+							
+						</tbody>
 						
 					</table>
-		            <input type="button" class="butonTableF" value="Nueva Acci&oacute;n" style ="width: 300px" onclick="document.getElementById('nuevaAccion').style.display='block'">
+		            <input type="button" class="butonTableF" id="btnnuevaaccion" value="Nueva Acci&oacute;n" style ="width: 300px" >
 		        </div>
 		    </div>
 		</div>
       
       </div>
       <div style="height: 10%;">
-      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">Cancelar</button>
+      		<button type="button" style=" width: 100px; float: right;height: 94%;" id="btncancelarnuevodispositivo" >Cancelar</button>
 	      	<input type="submit" name="submit" id="submit" value="Guardar" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('openNewDevice').style.display='none'">
       </div>
     </div>
   </form>
 </div>
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <!--seccion nuevo Objecto-->
 <div id="NuevoObjeto" class="modal">
 	<form class="modal-content animate" action="#">
 		<div class="imgcontainer">
-	      <span onclick="document.getElementById('NuevoObjeto').style.display='none'" class="close" title="Close Modal">&times;</span>
+	      <!--<span onclick="document.getElementById('NuevoObjeto').style.display='none'" class="close" title="Close Modal">&times;</span>-->
 	    </div>
 	    <div class="container" style=" height: 100%;">
 	      <label><b>Nuevo Objeto</b></label>
@@ -210,17 +160,67 @@
 			</div>
 	      </div>
 	      <div style="height: 10%;">
-	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('NuevoObjeto').style.display='none'">Cancelar</button>
-	      		<button type="submit" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="crearObjeto()">Crear</button>
+	      		<button type="button" style=" width: 100px; float: right;height: 94%;" id="btncancelarnuevoobjeto" >Cancelar</button>
+	      		<button type="submit" id="crearObjeto" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" >Crear</button>
 		  </div>
 	    </div>
 	</form>
 </div>
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--seccion modificar Objecto-->
+<div id="editar_objeto" class="modal">
+	<form class="modal-content animate" action="#">
+		<div class="imgcontainer">
+	      <!--<span onclick="document.getElementById('editar_objeto').style.display='none'" class="close" title="Close Modal">&times;</span>-->
+	    </div>
+	    <div class="container" style=" height: 100%;">
+	      <label><b>Modificar Objeto</b></label>
+	      <div style=" height: 80%;margin-top: 7px;">
+	      	<div id="contenedor">
+	      		<div class="content" style="margin-top: 0;">
+			      	<input type="text" placeholder="Nombre Objeto" id="nameObjectE" required>
+			      	<input type="text" placeholder="Codigo Objeto" id="codeObjectE" required>
+			      	Tipo de Objeto:
+			      	<select placeholder="Tipo Objeto" id="typeObjectE">
+					    <option value="Emisor">Emisor</option>
+					    <option value="Receptor">Receptor</option>
+					    <option value="Hibrido">Hibrido</option>
+					</select>
+					Tipo de Comunicaci&oacute;n:
+						<select placeholder="Tipo Comunicacion"  id="typeComunicationObjectE">
+							<option value="http">HTTP</option>
+							<option value="ftp">FTP</option>
+							<option value="udp">UDP</option>
+							<option value="serial">SERIAL</option>
+						</select>
+					<input type="text" placeholder="Direcci&oacute;n IP" id="iphtmlE" style="width: 26%; height: 31px; display: block " >
+					<input type="text" placeholder="Puerto" id="puertohtmlE" style="width: 12%; height: 31px; display: block " >
+					<input type="text" placeholder="Dominio ftp" id="dominioE" style="width: 26%; height: 31px; display: none " >
+					<input type="text" placeholder="Puerto" id="puertoftpE" style="width: 12%; height: 31px; display: none " >
+					<input type="text" placeholder="Direcci&oacute;n IP" id="ipudpE" style="width: 26%; height: 31px; display: none " >
+					<input type="text" placeholder="Puerto" id="puertoudpE" style="width: 12%; height: 31px; display: none" >
+					<input type="text" placeholder="Dispositivo Ej: /dev/ttyUSB0" id="dispositivoserialE" style="width: 26%; height: 31px; display: none" >
+					<input type="text" placeholder="Direcci&oacute;n IP" id="ipserialE" style="width: 26%; height: 31px; display: none" >
+					<input type="text" placeholder="Puerto" id="puertoserialE" style="width: 12%; height: 31px; display: none" >
+					<input type="text" placeholder="Puerto" id="tagid" style="width: 12%; height: 31px; display: none" readonly>
+				</div>
+			</div>
+	      </div>
+	      <div style="height: 10%;">
+	      		<button type="button" style=" width: 100px; float: right;height: 94%;" id="cancelarmodobjeto">Cancelar</button>
+	      		<button type="submit" id="btnEditarObjeto" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" >Guardar Cambios</button>
+		  </div>
+	    </div>
+	</form>
+</div>
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <!--seccion nueva Accion-->
 <div id="nuevaAccion" class="modal">
 	<form class="modal-content animate" action="#">
 		<div class="imgcontainer">
-	      <span onclick="document.getElementById('nuevaAccion').style.display='none'" class="close" title="Close Modal">&times;</span>
+	      <!--<span onclick="document.getElementById('nuevaAccion').style.display='none'" class="close" title="Close Modal">&times;</span>-->
 	    </div>
 	    <div class="container" style=" height: 100%;">
 	      <label><b>Nueva Accion</b></label>
@@ -228,29 +228,68 @@
 	      	<div id="contenedor">
 				<div class="content" style="margin-top: 0;">
 			      	<input type="text" placeholder="Nombre Accion" id="nameAction" required>
-			      	Tipo de Acci&oacute;n:
-			      	<select placeholder="Tipo Acci&oacute;n" id="typeObject">
-					    <option value="SC">Incremental</option>
-					    <option value="SK">Bit</option>
+			      	<input type="text" placeholder="C&oacute;digo del objeto al que pertenecera la acci&oacute;n" id="codeObject_relacion" required>
+			      	<input type="text" placeholder="C&oacute;digo de Acci&oacute;n" id="codeAccion" required>
+			      	<p style="line-height: 0px;text-align: inherit;margin-left: 36px;">Tipo de Acci&oacute;n:</p>
+			      	<select style="margin-left: 36px;" placeholder="Tipo Acci&oacute;n" id="tipoAccion">
+					    <option value="incremental">Incremental</option>
+					    <option value="on_off">On / Off</option>
 					</select>
-					Descripci&oacute;n:
-					<textarea rows="4" cols="50">
+					<p style="line-height: 0px;text-align: inherit;margin-left: 36px;">Descripci&oacute;n:</p>
+					<textarea style="margin-left: 36px;" rows="4" cols="120" id="descripcion">
 					</textArea>	
 					</div>
 				</div>
 	      </div>
 	      <div style="height: 10%;">
-	      		<button type="button" style=" width: 100px; float: right;height: 94%;" onclick="document.getElementById('nuevaAccion').style.display='none'">Cancelar</button>
-	      		<button type="submit" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" onclick="document.getElementById('nuevaAccion').style.display='none'">Crear</button>
+	      		<button type="button" style=" width: 100px; float: right;height: 94%;" id="btncancelarnuevaaccion" >Cancelar</button>
+	      		<button type="submit" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" id="btncrearaccion" >Crear</button>
 		  </div>
 	    </div>
 	</form>
 </div>
+
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<!--seccion modificar Accion-->
+<div id="modificarAccion" class="modal">
+	<form class="modal-content animate" action="#">
+		<div class="imgcontainer">
+	      <!--<span onclick="document.getElementById('nuevaAccion').style.display='none'" class="close" title="Close Modal">&times;</span>-->
+	    </div>
+	    <div class="container" style=" height: 100%;">
+	      <label><b>Modificar Acci&oacute;n</b></label>
+	      <div style=" height: 80%;margin-top: 7px;">
+	      	<div id="contenedor">
+				<div class="content" style="margin-top: 0;">
+			      	<input type="text" placeholder="Nombre Accion" id="nameActionE" required>
+			      	<input type="text" placeholder="C&oacute;digo del objeto al que pertenecera la acci&oacute;n" id="codeObject_relacionE" required>
+			      	<input type="text" placeholder="C&oacute;digo de Acci&oacute;n" id="codeAccionE" required>
+			      	<p style="line-height: 0px;text-align: inherit;margin-left: 36px;">Tipo de Acci&oacute;n:</p>
+			      	<select style="margin-left: 36px;" placeholder="Tipo Acci&oacute;n" id="tipoAccionE">
+					    <option value="incremental">Incremental</option>
+					    <option value="on_off">On / Off</option>
+					</select>
+					<p style="line-height: 0px;text-align: inherit;margin-left: 36px;">Descripci&oacute;n:</p>
+					<textarea style="margin-left: 36px;" rows="4" cols="120" id="descripcionE">	</textArea>	
+					<input type="text" placeholder="Puerto" id="tagid2" style=" display: none" readonly>
+					</div>
+				</div>
+	      </div>
+	      <div style="height: 10%;">
+	      		<button type="button" style=" width: 100px; float: right;height: 94%;" id="btncancelarmodificacionaccion" >Cancelar</button>
+	      		<button type="submit" style=" width: 100px; margin-right: 18px; float: right;height: 94%;" id="btnmodificaraccion" >Guardar</button>
+		  </div>
+	    </div>
+	</form>
+</div>
+
+<!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <!--seccion de informacion-->
 <div id="informacion" class="modal">
 	<div class="modal-content animate" >
 		<div class="imgcontainer">
-	      <span onclick="document.getElementById('informacion').style.display='none'" class="close" title="Close Modal">&times;</span>
+	      <!--<span onclick="document.getElementById('informacion').style.display='none'" class="close" title="Close Modal">&times;</span>-->
 	    </div>
 	    <div class="container" style=" height: 100%;">
 	      <label><b>Informaci&oacute;n</b></label>
@@ -359,7 +398,171 @@
 <script>
 
 	$(document).ready(function(){
-	   $('#typeComunicationObject').on('change', function() {
+		var contadorFilasAgregadas = 0;
+		var contadorFilasAgregadas2 = 0;
+	   $('#typeComunicationObject').on('change', Cambiar_SELECT_comu );
+	   $('#typeComunicationObjectE').on('change', Cambiar_SELECT_comu2 );
+
+	   $('#btnEditarObjeto').on('click', guardarObjEditado );
+
+	   $('#btnmodificaraccion').on('click', guardarAccionEditada );
+
+	   $('#tagnuevoDispositivo').on("click",function(){
+		  document.getElementById("openNewDevice").style.display="block";
+		})
+	   $('#taginformacion').on("click",function(){
+		  document.getElementById("informacion").style.display="block";
+		})
+	   
+	   $('#btnnuevoobjeto').on("click",function(){
+		  document.getElementById("NuevoObjeto").style.display="block";
+		})
+	   
+	   $('#btnnuevaaccion').on("click",function(){
+		  document.getElementById("nuevaAccion").style.display="block";
+		})
+	   
+
+	   $('#btncancelarnuevoobjeto').on("click",function(){
+		  document.getElementById("NuevoObjeto").style.display="none";
+		})
+
+	   $('#btncancelarmodificacionaccion').on("click",function(){
+		  document.getElementById("modificarAccion").style.display="none";
+		})
+	   
+	   $('#btncancelarnuevodispositivo').on("click",function(){
+		  document.getElementById("openNewDevice").style.display="none";
+		})
+
+	   $('#cancelarmodobjeto').on("click",function(){
+		  document.getElementById("editar_objeto").style.display="none";
+		})
+
+	   $('#btncancelarnuevaaccion').on("click",function(){
+		  document.getElementById("nuevaAccion").style.display="none";
+		})
+	   
+	   $('#crearObjeto').click(function () {
+
+	   		var nameObject=document.getElementById("nameObject").value
+    		var codeObject=document.getElementById("codeObject").value
+    		var typeObject=document.getElementById("typeObject").value
+    		var typeComunicationObject=document.getElementById("typeComunicationObject").value
+    		var iphtml=document.getElementById("iphtml").value
+    		var puertohtml=document.getElementById("puertohtml").value
+    		var dominio=document.getElementById("dominio").value
+    		var puertoftp=document.getElementById("puertoftp").value
+    		var ipudp=document.getElementById("ipudp").value
+    		var puertoudp=document.getElementById("puertoudp").value
+    		var dispositivoserial=document.getElementById("dispositivoserial").value
+    		var ipserial=document.getElementById("ipserial").value
+    		var puertoserial=document.getElementById("puertoserial").value
+
+    		var tdnombre = '<td><input type="text" name="nombre_' + contadorFilasAgregadas +'" value="'+nameObject+'" class="inputs_tabla_objetos" readonly></td>';
+    		var tdcodigo = '<td><input type="text" name="codigo_' + contadorFilasAgregadas +'" value="'+codeObject+'" class="inputs_tabla_objetos" readonly></td>';
+    		var tdtipo_objeto = '<td><input type="text" name="tipoObjeto_' + contadorFilasAgregadas +'" value="'+typeObject+'" class="inputs_tabla_objetos" readonly></td>';
+			var tdtipo_comunicacion = '<td><input type="text" name="tipoComunicacion_' + contadorFilasAgregadas +'" value="'+typeComunicationObject+'" class="inputs_tabla_objetos" readonly></td>';
+			var tdiphtml = '<td style="display: none;"><input type="text" name="iphtml_' + contadorFilasAgregadas +'" value="'+iphtml+'" class="inputs_tabla_objetos"  readonly></td>';
+			var tdpuertohtml = '<td style="display: none;"><input type="text" name="puertohtml_' + contadorFilasAgregadas +'" value="'+puertohtml+'" class="inputs_tabla_objetos"  readonly></td>';
+			var tddominio = '<td style="display: none;"><input type="text" name="dominio_' + contadorFilasAgregadas +'" value="'+dominio+'" class="inputs_tabla_objetos" readonly></td>';
+			var tdpuertoftp = '<td style="display: none;"><input type="text" name="puertoftp_' + contadorFilasAgregadas +'" value="'+puertoftp+'" class="inputs_tabla_objetos" readonly></td>';
+			var tdipudp = '<td style="display: none;"><input type="text" name="ipudp_' + contadorFilasAgregadas +'" value="'+ipudp+'" class="inputs_tabla_objetos" readonly></td>';
+			var tdpuertoudp = '<td style="display: none;"><input type="text" name="puertoudp_' + contadorFilasAgregadas +'" value="'+puertoudp+'" class="inputs_tabla_objetos" readonly></td>';
+			var tddispositivoserial = '<td style="display: none;"><input type="text" name="dispositivoserial_' + contadorFilasAgregadas +'" value="'+dispositivoserial+'" class="inputs_tabla_objetos" readonly></td>';
+			var tdipserial = '<td style="display: none;"><input type="text" name="serial_' + contadorFilasAgregadas +'" value="'+ipserial+'" class="inputs_tabla_objetos" readonly></td>';
+			var tdpuertoserial = '<td style="display: none;"><input type="text" name="puertoserial_' + contadorFilasAgregadas +'" value="'+puertoserial+'" class="inputs_tabla_objetos" readonly></td>';
+			var td = '<td style="display: none;"><input class=' + '"inputs_tabla_objetos"' + ' name="estado_' + contadorFilasAgregadas + '" value="Nuevo" readonly></td>';
+			contadorFilasAgregadas = contadorFilasAgregadas + 1;
+			
+    		//validaciones para guardar en la base
+    		/*if(tipo== "html"){
+
+    		}else if(tipo== "ftp"){
+
+    		}
+    		else if(tipo== "udp"){
+
+    		}else if(tipo== "serial"){
+
+    		}*/
+    		var btnEdit = '<td><input id="" type="button" class="butonTable" value="Editar" onclick="editarObjeto(' + contadorFilasAgregadas + ')"> </td>';
+    		var btnElim = '<td><input id="" type="button" class="butonTable" value="Eliminar" onclick="eliminarFila(' + contadorFilasAgregadas + ')"> </td>';
+            
+            
+            $('#table_body').append('<tr id="' + contadorFilasAgregadas + '">' + tdnombre + tdcodigo + tdtipo_objeto + tdtipo_comunicacion + tdiphtml + tdpuertohtml + tddominio + tdpuertoftp + tdipudp + tdpuertoudp + tddispositivoserial + tdipserial + tdpuertoserial + td + btnEdit + btnElim + '</tr>');
+        	document.getElementById('NuevoObjeto').style.display='none'
+        	document.getElementById("nameObject").value="";
+    		document.getElementById("codeObject").value="";
+    		document.getElementById("typeObject").value="";
+    		document.getElementById("typeComunicationObject").value="";
+    		document.getElementById("iphtml").value="";
+    		document.getElementById("puertohtml").value="";
+    		document.getElementById("dominio").value="";
+    		document.getElementById("puertoftp").value="";
+    		document.getElementById("ipudp").value="";
+    		document.getElementById("puertoudp").value="";
+    		document.getElementById("dispositivoserial").value="";
+    		document.getElementById("ipserial").value="";
+    		document.getElementById("puertoserial").value="";
+
+            
+        });
+
+
+		$('#btncrearaccion').click(function () {
+
+			var codeAccion=document.getElementById("codeAccion").value
+	   		var nameAction=document.getElementById("nameAction").value
+    		var tipoAccion=document.getElementById("tipoAccion").value
+    		var codeObject_relacion=document.getElementById("codeObject_relacion").value
+    		var descripcion=document.getElementById("descripcion").value
+    		
+
+    		var tdcodeAccion = '<td><input type="text" name="codeAccion_' + contadorFilasAgregadas2 +'" value="'+codeAccion+'" class="inputs_tabla_objetos" readonly></td>';
+    		var tdnameAction = '<td><input type="text" name="nameAction_' + contadorFilasAgregadas2 +'" value="'+nameAction+'" class="inputs_tabla_objetos" readonly></td>';
+    		var tdtipoAccion = '<td><input type="text" name="tipoAccion_' + contadorFilasAgregadas2 +'" value="'+tipoAccion+'" class="inputs_tabla_objetos" readonly></td>';
+			var tdcodeObject_relacion = '<td style="display: none;"><input type="text" name="codeObject_relacion_' + contadorFilasAgregadas2 +'" value="'+codeObject_relacion+'" class="inputs_tabla_objetos" readonly></td>';
+			var tddescripcion = '<td style="display: none;"><input type="text" name="descripcion_' + contadorFilasAgregadas2 +'" value="'+descripcion+'" class="inputs_tabla_objetos"  readonly></td>';
+			var td = '<td style="display: none;"><input class=' + '"inputs_tabla_objetos"' + ' name="estado2_' + contadorFilasAgregadas2 + '" value="Nuevo" readonly></td>';
+			contadorFilasAgregadas2 = contadorFilasAgregadas2 + 1;
+			
+    		//validaciones para guardar en la base
+    		
+    		var btnEdit = '<td><input id="" type="button" class="butonTable" value="Editar" onclick="editarAccion(' + contadorFilasAgregadas2 + ')"> </td>';
+    		var btnElim = '<td><input id="" type="button" class="butonTable" value="Eliminar" onclick="eliminarFila2(' + contadorFilasAgregadas2 + ')"> </td>';
+            
+            
+            $('#table_body2').append('<tr id="' + contadorFilasAgregadas2 + '">' + tdcodeAccion + tdnameAction + tdtipoAccion + tdcodeObject_relacion + tddescripcion +td + btnEdit + btnElim + '</tr>');
+        	document.getElementById("codeAccion").value="";
+	   		document.getElementById("nameAction").value="";
+    		document.getElementById("tipoAccion").value="";
+    		document.getElementById("codeObject_relacion").value="";
+    		document.getElementById("descripcion").value="";
+
+
+            document.getElementById("nuevaAccion").style.display="none";
+        });
+
+
+	});
+
+	function eliminarFila(id) {
+        console.log("CHAO");
+        $('#' + id.toString()).css("display", "none");
+        
+        document.getElementsByName("estado_"+(id-1).toString())[0].setAttribute("value", "Eliminado"); 
+    }
+
+    function eliminarFila2(id) {
+        console.log("CHAO");
+        $('#' + id.toString()).css("display", "none");
+        
+        document.getElementsByName("estado2_"+(id-1).toString())[0].setAttribute("value", "Eliminado"); 
+    }
+
+
+    function Cambiar_SELECT_comu () {
 	   		if (this.value == "http"){
 	   			$('#puertohtml').css("display","block");
 	   			$('#iphtml').css("display","block");
@@ -402,9 +605,149 @@
 	   			$('#puertoserial').css("display","block");
 	   		}
 		  
-		})
-	});
+		}
+		function Cambiar_SELECT_comu2 () {
+	   		if (document.getElementById("typeComunicationObjectE").value == "http"){
+	   			$('#puertohtmlE').css("display","block");
+	   			$('#iphtmlE').css("display","block");
+	   			$('#dominioE').css("display","none");
+	   			$('#puertoftpE').css("display","none");
+	   			$('#puertoudpE').css("display","none");
+	   			$('#ipudpE').css("display","none");
+	   			$('#dispositivoserialE').css("display","none");
+	   			$('#ipserialE').css("display","none");
+	   			$('#puertoserialE').css("display","none");
+	   		}else if (document.getElementById("typeComunicationObjectE").value == "ftp"){
+	   			$('#puertohtmlE').css("display","none");
+	   			$('#iphtmlE').css("display","none");
+	   			$('#dominioE').css("display","block");
+	   			$('#puertoftpE').css("display","block");
+	   			$('#puertoudpE').css("display","none");
+	   			$('#ipudpE').css("display","none");
+	   			$('#dispositivoserialE').css("display","none");
+	   			$('#ipserialE').css("display","none");
+	   			$('#puertoserialE').css("display","none");
+	   		}else if (document.getElementById("typeComunicationObjectE").value == "udp"){
+	   			$('#puertohtmlE').css("display","none");
+	   			$('#iphtmlE').css("display","none");
+	   			$('#dominioE').css("display","none");
+	   			$('#puertoftpE').css("display","none");
+	   			$('#puertoudpE').css("display","block");
+	   			$('#ipudpE').css("display","block");
+	   			$('#dispositivoserialE').css("display","none");
+	   			$('#ipserialE').css("display","none");
+	   			$('#puertoserialE').css("display","none");
+	   		}else if (document.getElementById("typeComunicationObjectE").value == "serial"){
+	   			$('#puertohtmlE').css("display","none");
+	   			$('#iphtmlE').css("display","none");
+	   			$('#dominioE').css("display","none");
+	   			$('#puertoftpE').css("display","none");
+	   			$('#puertoudpE').css("display","none");
+	   			$('#ipudpE').css("display","none");
+	   			$('#dispositivoserialE').css("display","block");
+	   			$('#ipserialE').css("display","block");
+	   			$('#puertoserialE').css("display","block");
+	   		}
+		  
+		}
 
+    function editarObjeto(id) {
+        console.log("modificar");
+        //$('#' + id.toString());
+        var n=(id-1).toString();
+        console.log(n, "nombre_"+n);
+        var nombre=document.getElementsByName("nombre_"+n)[0].value;
+		var codigo=document.getElementsByName("codigo_"+n)[0].value;
+		var tipoObjeto=document.getElementsByName("tipoObjeto_"+n)[0].value;
+		var tipo_comunicacion=document.getElementsByName("tipoComunicacion_"+n)[0].value;
+		var iphtml=document.getElementsByName("iphtml_"+n)[0].value;
+		var puertohtml=document.getElementsByName("puertohtml_"+n)[0].value;
+		var dominio=document.getElementsByName("dominio_"+n)[0].value;
+		var puertoftp=document.getElementsByName("puertoftp_"+n)[0].value;
+		var ipudp=document.getElementsByName("ipudp_"+n)[0].value;
+		var puertoudp=document.getElementsByName("puertoudp_"+n)[0].value;
+		var puertoftp=document.getElementsByName("puertoftp_"+n)[0].value;
+		var dispositivoserial=document.getElementsByName("dispositivoserial_"+n)[0].value;
+		var ipserial=document.getElementsByName("serial_"+n)[0].value;
+		var puertoserial=document.getElementsByName("puertoserial_"+n)[0].value;
+
+		document.getElementById("nameObjectE").value=nombre;
+		document.getElementById("codeObjectE").value=codigo;
+		document.getElementById("typeObjectE").value=tipoObjeto;
+		document.getElementById("typeComunicationObjectE").value=tipo_comunicacion;
+		document.getElementById("iphtmlE").value=iphtml;
+		document.getElementById("puertohtmlE").value=puertohtml;
+		document.getElementById("dominioE").value=dominio;
+		document.getElementById("puertoftpE").value=puertoftp;
+		document.getElementById("ipudpE").value=ipudp;
+		document.getElementById("puertoudpE").value=puertoudp;
+		document.getElementById("dispositivoserialE").value=dispositivoserial;
+		document.getElementById("ipserialE").value=ipserial;
+		document.getElementById("puertoserialE").value=puertoserial;
+		document.getElementById("tagid").value=id.toString();
+		Cambiar_SELECT_comu2();
+		document.getElementById('editar_objeto').style.display='block';
+    	
+    }
+
+    function editarAccion(id) {
+        console.log("modificar Accion");
+        //$('#' + id.toString());
+        var n=(id-1).toString();
+
+        console.log(n);
+			
+
+        var codeAccion=document.getElementsByName("codeAccion_"+n)[0].value;
+		var nameAction=document.getElementsByName("nameAction_"+n)[0].value;
+		var tipoAccion=document.getElementsByName("tipoAccion_"+n)[0].value;
+		var codeObject_relacion=document.getElementsByName("codeObject_relacion_"+n)[0].value;
+		var descripcion=document.getElementsByName("descripcion_"+n)[0].value;
+		
+
+		document.getElementById("codeAccionE").value=codeAccion;
+		document.getElementById("nameActionE").value=nameAction;
+		document.getElementById("tipoAccionE").value=tipoAccion;
+		document.getElementById("codeObject_relacionE").value=codeObject_relacion;
+		document.getElementById("descripcionE").value=descripcion;
+		document.getElementById("tagid2").value=id.toString();
+
+		document.getElementById('modificarAccion').style.display='block';
+    	
+    }
+
+    function guardarObjEditado() {
+    	var id=parseInt(document.getElementById("tagid").value);
+    	var n=id-1;
+    	console.log(n, "nombre_"+n);
+    	document.getElementsByName("nombre_"+n)[0].setAttribute("value", document.getElementById("nameObjectE").value);
+		document.getElementsByName("codigo_"+n)[0].setAttribute("value", document.getElementById("codeObjectE").value);
+		document.getElementsByName("tipoObjeto_"+n)[0].setAttribute("value", document.getElementById("typeObjectE").value);
+		document.getElementsByName("tipoComunicacion_"+n)[0].setAttribute("value", document.getElementById("typeComunicationObjectE").value);
+		document.getElementsByName("iphtml_"+n)[0].setAttribute("value", document.getElementById("iphtmlE").value);
+		document.getElementsByName("puertohtml_"+n)[0].setAttribute("value", document.getElementById("puertohtmlE").value);
+		document.getElementsByName("dominio_"+n)[0].setAttribute("value", document.getElementById("dominioE").value);
+		document.getElementsByName("puertoftp_"+n)[0].setAttribute("value", document.getElementById("puertoftpE").value);
+		document.getElementsByName("ipudp_"+n)[0].setAttribute("value", document.getElementById("ipudpE").value);
+		document.getElementsByName("puertoudp_"+n)[0].setAttribute("value", document.getElementById("puertoudpE").value);
+		document.getElementsByName("dispositivoserial_"+n)[0].setAttribute("value", document.getElementById("dispositivoserialE").value);
+		document.getElementsByName("serial_"+n)[0].setAttribute("value", document.getElementById("ipserialE").value);
+		document.getElementsByName("puertoserial_"+n)[0].setAttribute("value", document.getElementById("puertoserialE").value);
+		document.getElementById('editar_objeto').style.display='none';
+    }
+
+    function guardarAccionEditada() {
+    	var id=parseInt(document.getElementById("tagid2").value);
+    	var n=id-1;
+    	console.log(n, "nombre_"+n);
+    	document.getElementsByName("codeAccion_"+n)[0].setAttribute("value", document.getElementById("codeAccionE").value);
+		document.getElementsByName("nameAction_"+n)[0].setAttribute("value", document.getElementById("nameActionE").value);
+		document.getElementsByName("tipoAccion_"+n)[0].setAttribute("value", document.getElementById("tipoAccionE").value);
+		document.getElementsByName("codeObject_relacion_"+n)[0].setAttribute("value", document.getElementById("codeObject_relacionE").value);
+		document.getElementsByName("descripcion_"+n)[0].setAttribute("value", document.getElementById("descripcionE").value);
+		
+		document.getElementById('modificarAccion').style.display='none';
+    }
 </script>
 </body>
 </html>
