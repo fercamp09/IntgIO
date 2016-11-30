@@ -46,25 +46,21 @@
 <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <!--seccion buscr dispositivo-->
 <div id="BuscarDispositivo" class="modal">
-	<div class="container" style=" height: 100%;">
+	<div class="container" style=" height: 655px;">
 	      
 	      <div style=" height: 45%;margin-top: 7px;">
-	      			
-					<form class="modal-content animate" action="#">
-					</br>
-						<label style="  padding: 32px;    font-size: 25px;"><b>Buscar Dispositivo</b></label>
-						<div>
-					      	<input type="text" style="width: 36%;float: left; margin-left: 20%;" placeholder="C&oacute;digo del Dispositivo" id="Buscarxcodigo" required>
-					      	<div style=" float: left; margin-left: 6%;">
-						      	<input type="submit" style="border-radius: 11px;  width: 74%;   margin-left: 12px; margin-bottom: 10px;" name="buscar" value="Buscar" id="btnBuscarDispositivo" >
-						      	<button type="button" style="border-radius: 11px; width: 34%; margin-left: 12px;" id="btnModificarDispositivo" >Modificar</button>
-				      			<button type="button" style="border-radius: 11px; width: 34%; margin-left: 12px;" id="btnCancelarBusqueda" >Cancelar</button>
-			      			</div>
-		      			</div>
-		      			</form>
-				
+	      			<form class="modal-content animate" id="form_modificardispositivo" method="post" action="/modificarDispositivo" ajax="true">
+							<form class="modal-content animate" id="form_buscardispositivo" method="post" action="/buscarDispositivo" ajax="true">
+							    </br>
+								<label style="  padding: 32px;    font-size: 25px;"><b>Buscar Dispositivo</b></label>
+								<input type="text" style="width: 36%;float: left; margin-left: 20%;" placeholder="C&oacute;digo del Dispositivo" id="Buscarxcodigo" required>
+							    <input type="submit" style="border-radius: 11px;  width: 34%;   margin-left: 12px; margin-bottom: 10px;" value="Buscar" id="btnBuscarDispositivo" >
+							</form>
+					      	<input type="submit" style="border-radius: 11px; width: 34%; margin-left: 12px;" id="btnModificarDispositivo" value="Modificar">
+					</form>
+					<button type="button" style="border-radius: 11px; width: 34%;margin-left: 12px;float: right;margin-top: 10px;margin-right:9%;" id="btnCancelarBusqueda" >Cancelar</button>
 	      </div>
-	    </div>
+	</div>
 </div>
 
 <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
