@@ -339,60 +339,84 @@
 </div>
 
 <script type="text/javascript">
-	// Init
-/*
-	function init(){
-		
-		var deviceA = new Object(),
-			code = "dev_a",
-			name = "Dispositivo A",
-			type = "",
-			model = "",
-			objects = [objectA],
-			active = 1
-		}
-		var objectA = {
-			code="",
-			name="",
-			type="SC",
-			typeCommunication="fttp",
-			actions = [actionA],
-			active = 1
-		}
-		
-		var actionA = {
-			id = "",
-			name="",
-			type="",
-			description =""
-		}
-		
-		var devices = [deviceA]
-		var objects = [objectA]
-	}
-*/
+	
 	
 	// create an array with nodes
 	var nodes = new vis.DataSet([
-		{id: 1, label: 'Dispositivo', color: 'lime'},
-		{id: 2, label: 'Objeto', color: 'rgb(255,168,7)'},
-		{id: 3, label: 'Acciones', color: 'rgba(97,195,238,0.5)'},
+		{id: 1, font:{size:18} , label: 'Dispositivo', shape: 'ellipse' , color: '#FB7E81'},
+		{id: 2, font:{size:17} , label: 'Objeto',  shape: 'circle', color: '#97C2FC'},
+		{id: 3, label: 'Acciones',  shape: 'circle', color: '#C2FABC'},
 	]);
+	
 
 	// create an array with edges
 	var edges = new vis.DataSet([
-		{from: 1, to: 2, arrows:'to'},
-		{from: 2, to: 3, arrows:'to'},
+		{from: 1, to: 2,  color:'#97C2FC'},
+		{from: 2, to: 3,  color:'#97C2FC'},
 	]);
 
+	
 	// create a network
 	var container = document.getElementById('mynetwork');
 	var data = {
 		nodes: nodes,
 		edges: edges
 	};
-	var options = {};
+
+	var options = {
+        locale: "es",
+        nodes: {
+        	shadow: {
+				      enabled: true
+				    },
+            shape: 'dot',
+            size: 30,
+            
+            borderWidth: 2
+        },
+        edges: {
+        	arrows: {
+				      to: {
+				        enabled: true
+				      }
+				    },
+		    smooth: {
+			      type: "discrete",
+			      forceDirection: "none",
+			      roundness: 0,
+			    },
+            width: 2
+        },
+        physics: {
+				    barnesHut: {
+				      gravitationalConstant: -1100
+				    },
+				    maxVelocity: 149,
+				    minVelocity: 0.75,
+				    timestep: 1
+				  },
+		interaction: {
+					    multiselect: true,
+					    navigationButtons: true,
+					    hoverConnectedEdges: false
+					  },
+        manipulation: {
+          addEdge: function (data, callback) {
+          	console.log(data.from , data.to);
+            if (data.from == data.to) {
+              var r = confirm("Do you want to connect the node to itself?");
+              if (r == true) {
+                callback(data);
+              }
+            }
+            else {
+              callback(data);
+            }
+          }
+        }
+      };
 	var network = new vis.Network(container, data, options);
+	//--------------------------------------///////////////////////////
 	
 	function destroy() {
       if (network !== null) {
@@ -404,10 +428,12 @@
     function clearBoard(){
 	    destroy();
 	    var container = document.getElementById('mynetwork');
-	    var options = {};
+	    //var options = {};
 	    var data = {};
 		network = new vis.Network(container,data,options)
     }
+
+    
 
 
 </script>
