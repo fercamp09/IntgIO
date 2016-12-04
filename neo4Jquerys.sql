@@ -18,5 +18,10 @@ Create (adam:User {name:'Adam'}),(pernilla:User {name:'Pernilla'}), (david:User{
 create(device: Device{code:'000060',ip:'192.168.65.237',online:'true',model:'UNO',type:'Rasperry'}), (object:Object {code:'000061', name:'led',type:'sc'}), (action: Action{Status:'ON',code:'000062'}), (device)-[:HAVE]->(object),(object)-[:HAVE]->(action)
 
 //select Device
-match(device {code:'000060'})-[:HAVE]->(object)-[:HAVE]->(action)
-return device,object,action
+match(device {code:{code}})-[:HAVE]->(object)-[:HAVE]->(action) return device,object,action
+
+//eliminar relaciones, el id es el de la relacion 
+start r=rel(id) delete r;
+
+
+
