@@ -24,4 +24,6 @@ match(device {code:{code}})-[:HAVE]->(object)-[:HAVE]->(action) return device,ob
 start r=rel(id) delete r;
 
 
+[{"id":"207af868.b1a418","type":"neo4j","z":"a1407d8a.ce131","name":"INFO NODE","url":"http://neo4j:integradora@127.0.0.1:7474","query":"MATCH (a:Action {code:{code} })\nRETURN a","x":442,"y":309.76422119140625,"wires":[["8324463.ab4d3b8","f2fc9981.8fd4b"]]}]
+
 
