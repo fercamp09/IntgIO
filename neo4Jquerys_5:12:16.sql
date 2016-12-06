@@ -55,3 +55,7 @@ RETURN  {object: object,objects: objects}
 MATCH (action {code:"000017"})<-[:HAVE]-(object)-[:link]->(objects)-[:HAVE]->(actions)
 SET action.Status = "ON", actions.Status = "ON"
 RETURN  object, objects, action,actions
+	si retorna 0 rows realizar lo siguiente
+	MATCH (action {code:"000017"})
+	SET action.Status = "ON"
+	RETURN action
