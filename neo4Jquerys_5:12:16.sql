@@ -51,7 +51,7 @@ MATCH (device{code:"000017",Status:"ON"})<-[:HAVE]-(object)-[:link]->(objects)
 RETURN  {object: object,objects: objects}
 
 // ACTION -> CHANGES ACTIONS
-[{"id":"3509816a.e0ecce","type":"neo4j","z":"bc9bf4a0.4820e","name":"UPDATE_ACTIONS","url":"http://neo4j:integradora@127.0.0.1:7474", "query":"MATCH (device{code:{code}})<-[:HAVE]-(object)-[:link]->(objects)-[:HAVE]->(actions) SET actions.Status = {status} RETURN  object, objects, actions", "x":472,"y":1015,"wires":[["fd66356c.7ab8b8"]]}]
-MATCH (device{code:"000017",Status:"OFF"})<-[:HAVE]-(object)-[:link]->(objects)-[:HAVE]->(actions)
-SET actions.Status = "OFF"
-RETURN  object, objects, actions
+[{"id":"3509816a.e0ecce","type":"neo4j","z":"bc9bf4a0.4820e","name":"UPDATE_ACTIONS","url":"http://neo4j:integradora@127.0.0.1:7474", "query":"MATCH (action {code:{code}})<-[:HAVE]-(object)-[:link]->(objects)-[:HAVE]->(actions) SET action.Status = {status}, actions.Status = {status} RETURN  object, objects, action,actions",  "x":472,"y":1015,"wires":[["fd66356c.7ab8b8"]]}]
+MATCH (action {code:"000017"})<-[:HAVE]-(object)-[:link]->(objects)-[:HAVE]->(actions)
+SET action.Status = "ON", actions.Status = "ON"
+RETURN  object, objects, action,actions
