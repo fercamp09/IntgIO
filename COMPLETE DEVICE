@@ -1,0 +1,1 @@
+[{"id":"6f586997.4890f8","type":"neo4j","z":"4012b344.00007c","name":"COMPLETE DEVICE","url":"http://neo4j:integradora@127.0.0.1:7474","query":"match(device {code:{code}})-[:HAVE]->(object)-[:HAVE]->(action) return device,object,action","x":468,"y":797,"wires":[["f1f6bbbb.d9703","320eca55.e3390e"]]}]
