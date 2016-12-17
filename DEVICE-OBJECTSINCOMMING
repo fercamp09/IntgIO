@@ -1,1 +1,0 @@
-[{"id":"87f01d67.6382f","type":"neo4j","z":"bc9bf4a0.4820e","name":"PERSONAL OBJECT INCOMMING","url":"http://neo4j:integradora@127.0.0.1:7474","query":"MATCH (d:Device)-[:HAVE]->(o:Object)<-[:link]-(obs) WHERE d.code = {code} RETURN obs","x":540.9915313720703,"y":1552.5,"wires":[["fae60a86.074b08","608a3f41.4646f"]]}]

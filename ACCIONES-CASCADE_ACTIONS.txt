@@ -1,1 +1,0 @@
-[{"id":"4c7a085.7c60bf8","type":"neo4j","z":"f9dd4976.dec25","name":"CASCADE_ACTIONS","url":"http://neo4j:integradora@127.0.0.1:7474","query":"MATCH (action {code:{code}})<-[:HAVE]-(object)-[:link]->(objects)-[:HAVE]->(actions) SET actions.Status={stat} RETURN actions","x":570.0000457763672,"y":532.5000381469727,"wires":[[]]}]
