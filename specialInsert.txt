@@ -11,3 +11,11 @@ match(a:Object{code:"000026"}),(b:Action{code:"000027"}) MERGE (a)-[r:HAVE]->(b)
 
 match(a:Device{code:"000028"}),(b:Object{code:"000029"}) MERGE (a)-[r:HAVE]->(b)
 match(a:Object{code:"000029"}),(b:Action{code:"000030"}) MERGE (a)-[r:HAVE]->(b)
+
+
+
+eliminar dispositivos
+MATCH (a:Device {code:"002" }) OPTIONAL MATCH (a)-[r]-() DELETE a, r
+
+eliminar objetos
+MATCH (a:Object {id:"000003" }) OPTIONAL MATCH (a)-[r]-() DELETE a, r
