@@ -1,0 +1,67 @@
+1. Query para Aplicar Type en acciones de Base
+
+Match (a:Action{code:"000016"})
+set a.Type ="Switch"
+set a.Description ="Switch with two values"
+return a
+
+2. En el nodo "Obtener Objetos" -> function listActionsByObjectId(objectCode)
+	Agregar la siguiente linea, hara que traiga type de la base 
+	   var codeAction = json.data[i].code;
+    -> var typeAction = json.data[i].Type;
+	
+	En esa misma funcion -> function listActionsByObjectId(objectCode) cambiar esta linea para que solo salga Modificar
+	-> var btnEdit = '<td><input id="" type="button" class="butonTable" value="Modificar" onclick="buscarAccionInfo(' + contadorFilasAgregadas + ')"> </td>';
+
+3. En el nodo "Buscar Dispositivos js" -> en la function buscarAccionInfo(id)
+cambiar la siguiente linea
+	  document.getElementById("openEditAction").style.display="block";
+	->document.getElementById("listActionsToEdit").style.display="none";
+	->document.getElementById("actionCodeEdit").value = json.data[0].code;
+    ->document.getElementById("accionTypeEdit").value = json.data[0].Type;
+    ->document.getElementById("accionTypeEdit").value = json.data[0].Type;
+
+
+4. En el nodo Index en el formulario de Editar Accion div id ="openEditAction" 
+	cambiar los ids a los siguientes
+		-> actionCodeEdit
+		-> accionTypeEdit
+		-> actionDescriptionEdit
+		-> Quitar el div de Objeto Relacionado
+	Tanto en el formulario de "openEditAction" y "openNewAction" cambiar el value de actionTypeEdit a letra Capital
+		-> Switch
+		-> Incremental
+
+5. En el nodo crear Dispositivo anadir al final la siguiente funcion
+	function editAction(){
+	    console.log("Edit Action")
+	    var code = document.getElementById("actionCodeEdit").value
+	    var type = document.getElementById("accionTypeEdit").value
+	    var description = document.getElementById("actionDescriptionEdit").value
+	    $.ajax({
+	        url: 'http://127.0.0.1:1880/MODIFY/ACTIONEDIT',
+	        type: 'GET',
+	        dataType: 'json',
+	        data : { code : code ,type : type , description : description},
+	        success: function(json){
+	            console.log(json);
+	            console.log("ok se actualizo Accion log");
+	        },
+	        error : function(xhr, status) {
+	           alert('Disculpe, No se pudo modificar Accion');
+	        },
+	        complete : function(xhr, status) {
+	            alert('La Accion fue modificada exitosamente');
+	        } 
+	    });
+	}
+6. Anadir el flujo de modify action en ACTION
+
+7. En el script del index anadir
+	   $('#btnEditarObjeto').on('click',editObject);
+	-> $('#btnEditarAccion').on('click',editAction);
+	-> $('#btnEditarAccion').on("click",function(){
+	       document.getElementById("openEditAction").style.display="none";
+	       document.getElementById("listActionsToEdit").style.display="block";
+	   })
+7. 
