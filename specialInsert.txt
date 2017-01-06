@@ -19,3 +19,11 @@ MATCH (a:Device {code:"002" }) OPTIONAL MATCH (a)-[r]-() DELETE a, r
 
 eliminar objetos
 MATCH (a:Object {id:"000003" }) OPTIONAL MATCH (a)-[r]-() DELETE a, r
+
+ELIMINAR DISPOSITIVO COMPLETO
+
+MATCH (a:Device {code:{code} }) OPTIONAL MATCH (a)-[r]->(b:Object) OPTIONAL MATCH (b)-[r1]->(c:Action) OPTIONAL MATCH (b)<-[r2]-(d) delete a,b,c,r,r1,r2
+
+
+
+[{"id":"b0c658fc.047e08","type":"neo4j","z":"4012b344.00007c","name":"DELETE NODE","url":"http://neo4j:integradora@127.0.0.1:7474","query":"MATCH (a:Device {code:{code} }) OPTIONAL MATCH (a)-[r]->(b:Object) OPTIONAL MATCH (b)-[r1]->(c:Action) OPTIONAL MATCH (b)<-[r2]-(d) delete a,b,c,r,r1,r2","x":519.5666656494141,"y":1879.7667083740234,"wires":[["327ca2fd.19112e"]]}]
