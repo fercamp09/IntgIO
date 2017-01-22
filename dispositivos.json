@@ -1,0 +1,74 @@
+[
+  {
+    "Device": [
+      {
+        "COM": "",
+        "puerto": "3636",
+        "code": "30",
+        "ip": "200.126.23.139",
+        "online": "true",
+        "model": "uno",
+        "type": "arduino",
+        "type_Comunication": "TCP"
+      }
+    ],
+    "Objects": [
+      {
+        "protocol": "TCP",
+        "code": "31",
+        "name": "Servo motor",
+        "type": "Receptor"
+      },
+      {
+        "protocol": "TCP",
+        "code": "32",
+        "name": "Led",
+        "type": "Receptor"
+      }
+    ],
+    "Actions": [
+      {
+        "Type": "switch",
+        "Description": "led",
+        "code": "33",
+        "code_Object": "32"
+      },
+      {
+        "Type": "incremental",
+        "Description": "motor",
+        "code": "34",
+        "code_Object": "31"
+      }
+    ]
+  },
+  {
+    "Device": [
+      {
+        "COM": "",
+        "puerto": "8080",
+        "code": "111",
+        "ip": "200.126.23.139",
+        "online": "true",
+        "model": "uno",
+        "type": "arduino",
+        "type_Comunication": "TCP"
+      }
+    ],
+    "Objects": [
+      {
+        "protocol": "TCP",
+        "code": "112",
+        "name": "Led",
+        "type": "Receptor"
+      }
+    ],
+    "Actions": [
+      {
+        "Type": "switch",
+        "Description": "led",
+        "code": "113",
+        "code_Object": "112"
+      }
+    ]
+  }
+]
