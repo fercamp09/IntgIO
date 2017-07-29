@@ -1,0 +1,357 @@
+// This #include statement was automatically added by the Particle IDE.
+
+#include <HttpClient.h>
+
+
+#define COMMON_ANODE          // common anode rgb led
+// Wi-fi Credentials
+#define SSID  "CTI_IOT"     
+#define PASSWORD "protocti2016" 
+
+/////////////////////////////////////////////////////////////// Variables ///////////////////////////////////////////////////////////////////////////////////
+HttpClient http;
+http_request_t request;
+http_response_t response;
+
+// Codes
+String devcode = "photon1";
+String actSwitch = "sendSignal";
+String actLEDONOFF = "turnOnOff1";
+String actLEDColor = "changeColor1";
+String objSwitch = "switch1";
+String objled = "led1";
+
+// TCP Server definition
+int puerto = 80;
+TCPServer server = TCPServer(puerto);
+TCPClient client;
+String hostname = "200.126.23.138";
+boolean wifiConnected = false;
+int port = 1880;
+
+// LED pins
+const int redPin = D2;
+const int greenPin = D1;
+const int bluePin = D0;
+
+int red = 255;
+int green = 255;
+int blue = 255;
+
+
+// Button pin
+const int buttonPin = D3;     // the number of the pushbutton pin
+
+// Potentiometer
+const int potPin = A0;
+float valPot = 0.0;
+
+// Button state variables
+int buttonState = 0;          // variable for reading the pushbutton status
+int prevbuttonState = 0;      // variable for reading the pushbutton status
+bool pressed = false;         // variable for reading the pushbutton status
+bool on = false;         // variable for reading the pushbutton status
+
+// Variables for holding actions info
+String* globalActions;
+float* globalStatuses;
+String* globalTypes;
+int globalSize;
+
+// Received buffer
+String receivedMsg = "";
+int recMsgOffset = 0;
+String codeActionStr = String("");
+String statusActionStr = String("");
+    
+//////////////////////////////////////////////////////////////// Program //////////////////////////////////////////////////////////////////////////////////
+// Function run first when device turns on
+void setup()
+{
+  // Start serial  
+  Serial.begin(9600);
+  // initialize the leds pins as inputs
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);  
+  
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
+  
+  setColor(0, 0, 0);
+  // Start listening for clients
+  server.begin();
+  
+  
+  // Setup wifi
+  WiFi.setCredentials(SSID, PASSWORD);
+  
+  // For processing the credentials and connecting to the internet
+   while(!Serial.available()) Particle.process();
+    
+    
+    Serial.print("false/true 1: ");
+  Serial.print(map(1, 0.0, 1.0, false, true));
+  Serial.print("false/true 0: ");
+  Serial.print(map(0, 0.0, 1.0, false, true));
+  
+    // Set info for request
+    request.hostname = hostname;
+    request.port = port;
+    request.path = "/UPDATE/DEVICEON?code="+ devcode + "&ip="+ WiFi.localIP().toString() + "&puerto=" + puerto + "&online=true";
+    
+    // Send GET request
+    http.get(request, response);
+    //Serial.print("Application>\tResponse status: ");
+    //Serial.println(response.status);
+    // Obtain response
+    Serial.print("Application>\tHTTP Response Body: ");
+    Serial.println(response.body);
+    String body = response.body;
+    // Get info from response
+    int offset = body.lastIndexOf(",");
+    Serial.print("offset: ");
+    Serial.println(offset);
+    offset++;
+    
+    // Get number of actions
+    int length = 0;
+    String lengthString = String("");
+    while(93 != body.charAt(offset)){ // 93 is ASCII for ]
+        Serial.print("offset: ");
+        Serial.println(offset);
+        lengthString.concat(body.charAt(offset));
+        offset++;
+    }
+    
+    length = lengthString.toInt();
+    Serial.print("length: ");
+    Serial.println(length);
+    
+    // Variables for holding actions info
+    String actions[length];
+    float statuses[length];
+    String types[length];
+    
+    offset = 1;
+    int i = 0;
+    while(-1 != body.indexOf("[", offset)){
+        offset = body.indexOf("[", offset);
+        offset = offset + 2; // for the "\"", 34 in ASCII
+        Serial.print("offset: ");
+        Serial.println(offset);
+        
+        // Searching for the code
+        String codeString = String("");
+        while(34 != body.charAt(offset)){
+            Serial.print("offset: ");
+            Serial.println(offset);
+            
+            codeString.concat(body.charAt(offset));
+            offset++;
+        }
+        Serial.print("code: ");
+        Serial.println(codeString);
+        actions[i] = codeString;
+        
+        offset = offset + 3; // for the comma "," and next "\""
+        
+        // Searching for the status
+        String statusString = String("");
+        float status = 0.0;
+        
+        while(34 != body.charAt(offset)){ // 44 is "," in ASCII, 34 is "\"" in ASCII
+            statusString.concat(body.charAt(offset));
+            offset++;
+        }
+        status = statusString.toFloat();
+        statuses[i] = status;
+        Serial.print("status: ");
+        Serial.println(statusString);
+        Serial.println(status);
+        
+        offset = offset + 2; // for the comma "," and next "\""
+        
+        // Searching for the type
+        String typeString = String("");
+        while(34 != body.charAt(offset)){
+            Serial.print("offset: ");
+            Serial.println(offset);
+            
+            typeString.concat(body.charAt(offset));
+            offset++;
+        }
+        Serial.print("type: ");
+        Serial.println(typeString);
+        types[i] = typeString;
+        
+        // For advancing the array
+        i++;
+    }
+    // Get available actions from server and put them in an array, for updating
+    
+    //globalActions = actions;
+    //globalStatuses = statuses;
+    //globalTypes = types;
+    globalSize = length;
+    
+    // Update actions with the actual status of the actions in this device
+    updateActions(actions, statuses, globalSize);
+}
+long map1(long x, long in_min, long in_max, long out_min, long out_max)
+{
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void loop()
+{
+  /*valPot = analogRead(potPin);    // read the value from the sensor
+  Serial.println(valPot);
+  float val = map(valPot, 0.0, 4095.0, 0.0, 1.0);
+  Serial.println(val);
+  //changeColor(val);
+  changeGreenColor(val);*/
+  
+  // Read the state of the pushbutton value:
+  buttonState = digitalRead(buttonPin);
+  if (buttonState == HIGH && prevbuttonState == LOW ) {
+    pressed = !pressed;
+  }
+  // Check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (pressed) {
+    // Turn LED on:
+    setColor(255, 0, 0);  // red
+    delay(500);
+    // Send get update/actions once
+    pressed = !pressed;
+    request.hostname = hostname;
+    request.port = port;
+    //request.path = "/MODIFY/ACTION2?code="+ actSwitch +"&value=1.0";
+    request.path = "/MODIFY/ACTION2?code="+ objSwitch +"&value=1.0";
+    http.get(request, response);
+  } else {
+    // Turn LED off:
+    setColor(0, 0, 0);  // black
+  }
+  prevbuttonState = buttonState;
+  
+  if (on){
+    setColor(red, green, blue);  // white
+  }else{
+    setColor(0, 0, 0);  // black
+  }
+  
+  if (client.connected()) {
+    // echo all available bytes back to the client  
+    recMsgOffset = 0;
+    receivedMsg = "";
+    
+    while (client.available()) {
+      // Obtain response
+      char c = char(client.read());
+      Serial.print(c);
+      receivedMsg = receivedMsg + c; 
+      server.write("\n");
+    }
+    // Send GET request (pull) but dont see  as necessary
+    recMsgOffset = receivedMsg.indexOf("{");
+      
+    Serial.print("offset: ");
+    Serial.println(recMsgOffset);
+    recMsgOffset++;
+      
+    // Searching for the action code
+    while(44 != receivedMsg.charAt(recMsgOffset)){ // 44 is "," in ASCII
+         Serial.print("offset: ");
+         Serial.println(recMsgOffset);
+           
+         codeActionStr.concat(receivedMsg.charAt(recMsgOffset));
+         recMsgOffset++;
+    }
+    Serial.print("action code: ");
+    Serial.println(codeActionStr);
+      
+      // Searching for the action status
+      //statusActionStr = String("");
+    recMsgOffset++;
+    while(125 != receivedMsg.charAt(recMsgOffset)){ // 125 is "}" in ASCII
+         Serial.print("offset: ");
+         Serial.println(recMsgOffset);
+           
+         statusActionStr.concat(receivedMsg.charAt(recMsgOffset));
+         recMsgOffset++;
+    }
+    Serial.print("action status: ");
+    Serial.println();
+    
+    // Update status of actions
+    updateAction(codeActionStr, statusActionStr.toFloat());
+    Serial.println(receivedMsg);
+  } else {
+    // if no client is yet connected, check for a new connection
+    client = server.available();
+  }
+}
+ 
+void setColor(int red1, int green1, int blue1)
+{
+  #ifdef COMMON_ANODE
+    red = 255 - red1;
+    green = 255 - green1;
+    blue = 255 - blue1;
+  #endif
+  analogWrite(redPin, red);
+  analogWrite(greenPin, green);
+  analogWrite(bluePin, blue);  
+}
+
+// Turns on/off the led
+void turnOnOff(float value)
+{
+    on = map(value, 0.0, 1.0, false, true);
+}
+
+// Turns on/off the led
+void changeColor(float value)
+{
+    int val = map(value, 0.0, 1.0, 0, 255);
+        
+    setColor(val, val, val);
+}
+
+// Change only the green color
+void changeGreenColor(float value)
+{
+    int val = map(value, 0.0, 1.0, 0, 255);
+        
+    setColor(red, val, blue);
+} 
+
+// Update the action state based on a name
+void updateAction(String action, float value){
+    if (action.indexOf(actLEDONOFF) != -1){
+        turnOnOff(value);
+        Serial.print("turned on: ");
+        Serial.println(on);
+    } else if (action.indexOf(actLEDColor)){
+        changeColor(value);
+        Serial.print("color set: ");
+        Serial.println(value);
+    } else if (action == "movePot"){
+        Serial.print("pot set to: ");
+        Serial.println(value);
+    } else {
+        Serial.println(action);
+    }
+}
+
+// Update all actions states given a value
+void updateActions(String actions[], float values[], int size){
+    for (int i = 0; i < size; i++ ){
+        Serial.println("value:");
+        Serial.println(values[i]);
+        Serial.println("action:");
+        Serial.println(actions[i]);
+        updateAction(actions[i], values[i]);
+    }
+}
