@@ -1,3 +1,4 @@
+// colderThanAbsoluteZero
 // This #include statement was automatically added by the Particle IDE.
 
 #include <HttpClient.h>
@@ -87,7 +88,8 @@ void setup()
   WiFi.setCredentials(SSID, PASSWORD);
   
   // For processing the credentials and connecting to the internet
-   while(!Serial.available()) Particle.process();
+  //while(!Serial.available()) 
+  Particle.process();
     
     
     Serial.print("false/true 1: ");
@@ -227,7 +229,7 @@ void loop()
     request.hostname = hostname;
     request.port = port;
     //request.path = "/MODIFY/ACTION2?code="+ actSwitch +"&value=1.0";
-    request.path = "/MODIFY/ACTION2?code="+ objSwitch +"&value=1.0";
+    request.path = "/MODIFY/ACTION2?code="+ objSwitch +"&value=1";
     http.get(request, response);
   } else {
     // Turn LED off:
@@ -333,7 +335,7 @@ void updateAction(String action, float value){
         turnOnOff(value);
         Serial.print("turned on: ");
         Serial.println(on);
-    } else if (action.indexOf(actLEDColor)){
+    } else if (action.indexOf(actLEDColor) != -1){
         changeColor(value);
         Serial.print("color set: ");
         Serial.println(value);
