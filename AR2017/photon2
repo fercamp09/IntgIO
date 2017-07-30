@@ -1,3 +1,4 @@
+// fasterThanLight
 // This #include statement was automatically added by the Particle IDE.
 #include <HttpClient.h>
 
@@ -32,6 +33,8 @@ const int redPin = D2;
 const int greenPin = D1;
 const int bluePin = D0;
 
+const int boardLed = D7;
+
 int red = 255;
 int green = 255;
 int blue = 255;
@@ -48,7 +51,7 @@ float valPot = 0.0;
 int buttonState = 0;          // variable for reading the pushbutton status
 int prevbuttonState = 0;      // variable for reading the pushbutton status
 bool pressed = false;         // variable for reading the pushbutton status
-bool on = false;         // variable for reading the pushbutton status
+bool on = false;              // variable for reading the pushbutton status
 
 // Variables for holding actions info
 String* globalActions;
@@ -66,31 +69,32 @@ String statusActionStr = String("");
 // Function run first when device turns on
 void setup()
 {
-  // Start serial  
-  Serial.begin(9600);
-  // initialize the leds pins as inputs
-  pinMode(greenPin, OUTPUT);  
+    // Start serial  
+    Serial.begin(9600);
+    // initialize the leds pins as outputs
+    pinMode(greenPin, OUTPUT);  
   
-  // initialize the pushbutton pin as an input:
-  pinMode(buttonPin, INPUT);
+    // initialize the pushbutton pin as an input:
+    pinMode(buttonPin, INPUT);
   
+    // initialize the boardLed pin as an output:
+    pinMode(boardLed, OUTPUT);
+    //setColor(0, 0, 0);
+    // Start listening for clients
+    server.begin();
   
-  //setColor(0, 0, 0);
-  // Start listening for clients
-  server.begin();
+    // Setup wifi
+    WiFi.setCredentials(SSID, PASSWORD);
   
-  
-  // Setup wifi
-  WiFi.setCredentials(SSID, PASSWORD);
-  
-  // For processing the credentials and connecting to the internet
-   while(!Serial.available()) Particle.process();
+    // For processing the credentials and connecting to the internet
+    //while(!Serial.available()) 
+    Particle.process();
     
     
     Serial.print("false/true 1: ");
-  Serial.print(map(1, 0.0, 1.0, false, true));
-  Serial.print("false/true 0: ");
-  Serial.print(map(0, 0.0, 1.0, false, true));
+    Serial.print(map(1, 0.0, 1.0, false, true));
+    Serial.print("false/true 0: ");
+    Serial.print(map(0, 0.0, 1.0, false, true));
   
     // Set info for request
     request.hostname = hostname;
@@ -217,23 +221,24 @@ void loop()
   // Check if the pushbutton is pressed. If it is, the buttonState is HIGH:
   if (pressed) {
     // Turn LED on:
-    setColor(255, 0, 0);  // red
-    delay(500);
+    digitalWrite(boardLed, HIGH); 
+    delay(100);
+    digitalWrite(boardLed, LOW); 
     // Send get update/actions once
     pressed = !pressed;
     request.hostname = hostname;
     request.port = port;
     //request.path = "/MODIFY/ACTION2?code="+ actSwitch +"&value=1.0";
-    request.path = "/MODIFY/ACTION2?code="+ objSwitch +"&value=1.0";
+    request.path = "/MODIFY/ACTION2?code="+ objSwitch +"&value=0";
     http.get(request, response);
   } else {
     // Turn LED off:
-    setColor(0, 0, 0);  // black
+    digitalWrite(greenPin, LOW); 
   }
   prevbuttonState = buttonState;
   
   if (on){
-     digitalWrite(greenPin, HIGH); 
+    digitalWrite(greenPin, HIGH); 
     //setColor(red, green, blue);  // white
   }else{
     //setColor(0, 0, 0);  // black
