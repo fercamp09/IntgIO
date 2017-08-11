@@ -1,8 +1,8 @@
 # IntgIO
-  Proyecto de Grado de la Carrera de Ingeniería en Ciencias Computacionales 2016-2017		 
+  Proyecto de Grado de la Carrera de Ingeniería en Ciencias Computacionales 2017-2018	 
 ##Integrantes
-  - Adrián Aguilar
-  - Kevin Campuzano
+  - Fernando Campaña
+  - Victor Menoscal
 
 ##Descripción
- Sistema de Integración para objetos inteligentes utilizando Node-Red y Neo-4j.
+ Sistema de reconfiguración y programación de objetos inteligentes utilizando Node-Red y Neo-4j.
