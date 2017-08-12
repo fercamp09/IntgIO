@@ -1,0 +1,26 @@
+char incoming_char=0;
+int switchPin = D0;
+void setup() {
+  Serial.begin(9600);
+  pinMode(switchPin, OUTPUT);   
+  Serial.println("Setup has ended, entering loop()");
+}
+
+void loop() {
+ if (Serial.available())
+  {
+  
+    incoming_char=Serial.read(); // Get the incoming char
+    if(incoming_char == '1')
+    {
+      digitalWrite(switchPin, HIGH); // Turn the Powertail on
+      Serial.println("Switch ON");
+    }
+
+    if(incoming_char == '0')
+    {
+      digitalWrite(switchPin, LOW);    // turn the Powertail off
+      Serial.println("Switch OFF");
+    }
+  }
+}
