@@ -1,0 +1,158 @@
+// Code designed for use in a Particle Photon 
+
+// This #include statement was automatically added by the Particle IDE.
+#include <HttpClient.h>
+// Library for MQTT client
+#include <MQTT.h>
+// This #include statement was automatically added by the Particle IDE.
+#include "intgIO.h"
+// This #include statement was automatically added by the Particle IDE.
+// Library for temperature sensor.
+#include "IRTemp.h"
+
+///////////////////////////////// CONSTANTS ////////////////////////////////////////////////////////////////
+// Setup Wifi
+#define SSID        "LabProto"                // Replace with real SSID
+#define PASSWORD    "password"                // Replace with real password
+#define IDDevice    ID
+// Setup in/out 
+#define PROX_SENSOR_PIN D3                    // Prox. sensor pin
+#define RELAY_PIN D4                          // Relay pin
+static const byte PIN_DATA    = D7;           // Temp. sensor pins
+static const byte PIN_CLOCK   = D6;
+static const byte PIN_ACQUIRE = D5;
+
+static const TempUnit SCALE   = CELSIUS;      // Scale temperature for temperature sensor
+// Setup MQTT
+#define Broker "m10.cloudmqtt.com"            // MQTT Broker URL or IP
+#define Port 18485                            // MQTT Broker Port
+#define UserName "Prototipado"                // MQTT Username registered in the broker
+#define Password "S9i6r3pmQWME"               // MQTT Password for the given username
+// MQTT topics
+#define TOPESTADOCAFETERA "/onoff"            // Topic for turning the cafetera, on or off  
+#define TOPTEMPERATURA "/temp/ir"             // Topic for sending the temperature
+#define TOPPROX "/prox"                       // Topic for sending a 1 if the Pot is placed, 0 otherwise
+#define TOPCAFETERA "/cafetera"               // Topic to communicate that the cafetera is ready 
+
+///////////////////////////////// VARIABLES ////////////////////////////////////////////////////////////////
+
+// intgIO
+IntgIO device("photon4");
+
+// Temperature Setup
+IRTemp irTemp(PIN_ACQUIRE, PIN_CLOCK, PIN_DATA);
+unsigned long demora;
+float irTemperature;
+// Proximity Setup 
+int sensorValue = 0;
+int oldSensorValue = 0; 
+int estadoProximidad = 0;
+// MQTT Callback definition
+void callback(char* topic, byte* payload, unsigned int length);
+//void (*callback)(char*,uint8_t*,unsigned int)
+/**
+ * if want to use IP address,
+ * byte server[] = { XXX,XXX,XXX,XXX };
+ * MQTT client(server, 1883, callback);
+ * want to use domain name,
+ * MQTT client("www.sample.com", 1883, callback);
+ **/
+MQTT mqttClient(Broker, Port, callback);          // MQTT Client initialization
+
+///////////////////////////////// PROGRAM EXECUTION ////////////////////////////////////////////////////////
+
+void callback(char* topic, byte* payload, unsigned int length) {
+    char p[length + 1];
+    memcpy(p, payload, length);
+    p[length] = NULL;
+    String message(p);
+    String topic2(topic);
+    
+    if (topic2.equalsIgnoreCase( "/prox" )){
+        if (message.equalsIgnoreCase( "ready" )){
+            SensorProximidad();                                 // Reads sensor values and publish its value accordinly 
+        }
+    } else if (topic2.equalsIgnoreCase( TOPCAFETERA )){  
+        if (message.equalsIgnoreCase( "on" )){
+            digitalWrite(RELAY_PIN, HIGH );                     // Turns ON the cafetera
+            mqttClient.publish( TOPESTADOCAFETERA, "on" );      // Signals tha app that the cafetera is ON
+        } else if (message.equalsIgnoreCase( "off" )){
+            digitalWrite( RELAY_PIN, LOW );                     // Turns OFF the cafetera
+            mqttClient.publish( TOPESTADOCAFETERA, "off" );     // Signals tha app that the cafetera is OFF
+        } else if (message.equalsIgnoreCase( "ready" )){
+            mqttClient.publish( TOPCAFETERA, "conectada" );     // Signals the app that the cafetera is connected
+        } else if (message.equalsIgnoreCase( "readytaza" )){
+            SensorProximidad();                                 // Used for asking the Prox state and knowing that the pot is ready
+        }
+    }
+    Serial.println(message);
+    
+    ////////////////////////////////////
+    float value = message.toFloat();
+    if (topic2.indexOf(device.getDeviceID()) != -1){    
+        device.updateAction(topic2, value);
+    }
+    ///////////////////////////////////
+}
+
+
+// Executed first to setup  
+void setup() {
+    Serial.begin(9600);
+    // Set up WiFi
+    //WiFi.setCredentials(SSID, PASSWORD);
+    //WiFi.connect();
+    //Serial.println(WiFi.localIP());
+    // Set up pins to the corresponding mode
+    pinMode(RELAY_PIN,OUTPUT);
+    pinMode(PROX_SENSOR_PIN, INPUT);
+    
+    // Connect to the MQTT server
+    mqttClient.connect("cafetera", UserName, Password);
+    // Subscribe to topics
+    if (mqttClient.isConnected()) {
+        //Serial.println("Connected");
+        mqttClient.subscribe(TOPPROX);
+        mqttClient.subscribe(TOPCAFETERA);
+    }
+    // Publish that the cafetera is connected
+    // Particle.publish("cafetera", "conectada", 60, PRIVATE);
+}
+
+// Executed continuously and indefinitely
+void loop() {
+    /*if (mqttClient.isConnected()){
+        mqttClient.loop();
+    }*/
+    
+    ////////////////////////////////////
+    device.listenMQTTClient(mqttClient);
+    device.listenTCPServer();
+    ////////////////////////////////////
+    
+    
+    if (mqttClient.isConnected()){
+        irTemperature = irTemp.getIRTemperature(SCALE);
+        demora = millis();
+        if(demora % 9==0)
+            mqttClient.publish(TOPTEMPERATURA, String(irTemperature));    // Publish temperature
+        SensorProximidad();                                               // Publish proximity
+    }
+}
+
+// Function for sensing the proximity
+// 0: Pot out of place. Low to High
+// 1: Pot in place. High to Low
+void SensorProximidad()
+{
+  sensorValue = digitalRead(PROX_SENSOR_PIN);          // Read voltage value from sensor pin, 1 (HIGH) means object is near.
+  
+  if (sensorValue == 1 && oldSensorValue == 0){
+    mqttClient.publish(TOPPROX, "0");
+    digitalWrite(RELAY_PIN, LOW);                       // Turns OFF the cafetera 
+  }
+  else if (sensorValue == 0 && oldSensorValue == 1){
+    mqttClient.publish(TOPPROX, "1");
+  }
+  oldSensorValue = sensorValue;
+}
